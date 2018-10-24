@@ -1,0 +1,1 @@
+Den Ordner android_connect kopieren und in den Ordner "xammpp/htdocs" einfügen

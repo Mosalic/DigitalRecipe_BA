@@ -1,4 +1,6 @@
 package com.example.mona.digitalrecipe;
 
-public class Recipe {
+import android.support.v7.app.AppCompatActivity;
+
+public class Recipe extends AppCompatActivity {
 }
