@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+//this class stays in java, in Kotlin there are connection probems
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     private Context context;
