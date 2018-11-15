@@ -31,8 +31,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... params) {
 
         String type = params[0];
-        String login_url = "http://10.0.2.2/android_connect/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
-        String register_url = "http://10.0.2.2/android_connect/register.php";
+        String login_url = "http://10.0.2.2/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
+        String register_url = "http://10.0.2.2/API_Data/register.php";
 
         //Behavior for Login
         if(type.equals("login")){
@@ -51,8 +51,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 //"user_name" und "user_password" insert to login.php
-                String post_data = URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
-                        + URLEncoder.encode("user_password", "UTF-8") + "=" + URLEncoder.encode(str_userpassword, "UTF-8");
+                String post_data = URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
+                        + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userpassword, "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
