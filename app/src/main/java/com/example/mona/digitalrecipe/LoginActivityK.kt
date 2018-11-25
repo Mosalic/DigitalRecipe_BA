@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivityK : AppCompatActivity() {
 
     var etUsername: EditText? = null
     var etPassword: EditText? = null
@@ -17,8 +17,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         Log.i("Debug", "LoginActivity OnCreate")
-        etUsername = findViewById<View>(R.id.etUsername) as EditText
-        etPassword = findViewById<View>(R.id.etPassword) as EditText
+        etUsername = findViewById<View>(R.id.et_Username) as EditText
+        etPassword = findViewById<View>(R.id.et_Password) as EditText
     }
 
     fun onLogin(view: View) {

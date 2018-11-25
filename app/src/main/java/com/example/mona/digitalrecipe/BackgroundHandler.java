@@ -32,14 +32,15 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
         String type = params[0];
         String login_url = "http://10.0.2.2/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
-        String register_url = "http://10.0.2.2/API_Data/register.php";
+        String register_url = "http://10.0.2.2/API_Data/registerUser.php";
 
         //Behavior for Login
         if(type.equals("login")){
             Log.i("Debug", "Background doInBackground type Login");
             try {
-                String str_username = params[1];
-                String str_userpassword = params[2];
+                String str_userRole = params[1];
+                String str_username = params[2];
+                String str_userPassword = params[3];
 
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -50,9 +51,10 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                //"user_name" und "user_password" insert to login.php
-                String post_data = URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
-                        + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userpassword, "UTF-8");
+                //"userRole", "userName" und "userPassword" insert to login.php
+                String post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                                     + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
+                                     + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -86,8 +88,9 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         else if(type.equals("register")){
             Log.i("Debug", "Background doInBackground type Register");
             try {
-                String str_username = params[1];
-                String str_userpassword = params[2];
+                String str_userRole = params[1];
+                String str_username = params[2];
+                String str_userPassword = params[3];
 
                 URL url = new URL(register_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -98,9 +101,10 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                //"user_name" und "user_password" insert to login.php
-                String post_data = URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
-                        + URLEncoder.encode("user_password", "UTF-8") + "=" + URLEncoder.encode(str_userpassword, "UTF-8");
+                //"userRole", "userName" und "userPassword" insert to login.php
+                String post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
+                        + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
