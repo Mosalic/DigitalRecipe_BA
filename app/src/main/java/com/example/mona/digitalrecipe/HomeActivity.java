@@ -18,6 +18,10 @@ public class HomeActivity extends AppCompatActivity {
         //get Bottom navigation by id and add listener
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        //set start fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeListFragment()).commit();
+
     }
 
     //set Listener
