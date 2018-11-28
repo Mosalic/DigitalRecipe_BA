@@ -4,18 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_bright">
+    android:background="@android:color/darker_gray">
 
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:id="@+id/tablayout_id"/>
-
-    <TextView
+    <TextViewfragment_requires.xml
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rezeptlisten in Tabs"
+        android:text="Anforderungen ansehen und erstellen"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,3 +17,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
+
+
+
+
+

@@ -16,11 +16,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //get Bottom navigation by id and add listener
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_id);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         //set start fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, new RecipeListFragment()).commit();
 
     }
 
@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                     //show associated fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, selectedFragment).commit();
 
                     return true; //select item
                 }
