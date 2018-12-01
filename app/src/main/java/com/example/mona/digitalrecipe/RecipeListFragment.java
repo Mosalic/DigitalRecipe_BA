@@ -26,6 +26,7 @@ public class RecipeListFragment extends Fragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_id);
+        //Adapter declaration
         viewAdapter = new ViewPagerAdapter(getFragmentManager());
         //adding Fragments
         viewAdapter.addFragment(new RequiresFragment(), "Anforderungen");
