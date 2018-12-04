@@ -5,6 +5,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -33,7 +37,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... params) {
 
         String type = params[0];
-        String login_url = "http://10.0.2.2/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
+        String login_url = "http://192.168.0.101/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
         String register_url = "http://10.0.2.2/API_Data/registerUser.php";
 
         //Behavior for Login
@@ -153,10 +157,25 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);
-        alertDialog.setMessage(result);
+        //JSONObject jsonObject;
+        JSONArray jsonArray;
+        String jsonString = "";
+        try{
+            /*jsonObject = new JSONObject(result);
+            jsonString = jsonObject.getString("id");*/
+            //parse result to JSON
+            jsonArray = new JSONArray(result);
+            //get the id from the object index 0 (API just return one object with id for Login)
+            jsonString = jsonArray.getJSONObject(0).getString("id");
+        }catch(JSONException e){
+            Log.e(TAG, "unexpected JSONException");
+        }
+
+
+        alertDialog.setMessage(jsonString);
         alertDialog.show();
 
-        Log.d(TAG, "onPostExecute: result: " + result); //Test output
+        Log.d(TAG, "onPostExecute: result: " + jsonString); //Test output result
     }
 
     @Override
