@@ -1,12 +1,16 @@
 package com.example.mona.digitalrecipe;
 
+import android.util.Log;
+
 public class Require {
 
     private String name;
     private String medicine;
     private String complaint;
+    private static final String TAG = "Require"; //TAG for test outputs
 
     public Require(String name, String medicine, String complaint) {
+        Log.d(TAG, "Constructor"); //Test output
         this.name = name;
         this.medicine = medicine;
         this.complaint = complaint;

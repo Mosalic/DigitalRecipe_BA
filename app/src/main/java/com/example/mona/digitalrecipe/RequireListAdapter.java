@@ -3,6 +3,7 @@ package com.example.mona.digitalrecipe;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,15 @@ public class RequireListAdapter extends ArrayAdapter<Require> {
     //Constructor
     public RequireListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Require> objects) {
         super(context, resource, objects);
+        Log.d(TAG, "Constructor"); //Test output
         this.context = context;
         this.resource = resource;
-
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Log.d(TAG, "getView()"); //Test output
         //get Require Information
         String name = getItem(position).getName();
         String medicine = getItem(position).getMedicine();

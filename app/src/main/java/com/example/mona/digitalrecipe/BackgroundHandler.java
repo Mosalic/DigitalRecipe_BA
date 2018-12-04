@@ -22,8 +22,10 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     private Context context;
     AlertDialog alertDialog;
+    private static final String TAG = "BackgroundHandler"; //TAG for test outputs
 
     public BackgroundHandler(Context ctx){
+        Log.d(TAG, "Constructor"); //Test output
         context = ctx;
     }
 
@@ -36,7 +38,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
         //Behavior for Login
         if(type.equals("login")){
-            Log.i("Debug", "Background doInBackground type Login");
+            Log.d(TAG, "doInBackground: type Login"); //Test output
+
             try {
                 String str_userRole = params[1];
                 String str_username = params[2];
@@ -86,7 +89,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         }
         //Behavior for register
         else if(type.equals("register")){
-            Log.i("Debug", "Background doInBackground type Register");
+            Log.d(TAG, "doInBackground: type Register"); //Test output
+
             try {
                 String str_userRole = params[1];
                 String str_username = params[2];
@@ -140,7 +144,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     @Override
     protected void onPreExecute() {
         //super.onPreExecute();
-        Log.i("Debug", "Background OnPreExecute");
+        Log.d(TAG, "onPreExecute"); //Test output
+
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Login Status");
     }
@@ -150,7 +155,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         //super.onPostExecute(aVoid);
         alertDialog.setMessage(result);
         alertDialog.show();
-        Log.i("Debug", "Background OnPostExecute " +  result);
+
+        Log.d(TAG, "onPostExecute: result: " + result); //Test output
     }
 
     @Override

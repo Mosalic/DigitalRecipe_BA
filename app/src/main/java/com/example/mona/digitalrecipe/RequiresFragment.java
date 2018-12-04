@@ -23,9 +23,9 @@ public class RequiresFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_requires, container, false);
-        Log.d(TAG, "onCreateView: Started"); //Test output
+        Log.d(TAG, "onCreateView"); //Test output
 
-        listView = (ListView) view.findViewById(R.id.listView);
+        listView = view.findViewById(R.id.listView);
 
         //Create test Requires for now, later get them from the database
         Require require1 = new Require("Mona", "Patropazol", "Magenschmerzen");
@@ -53,5 +53,20 @@ public class RequiresFragment extends Fragment {
         listView.setAdapter(requireAdapter);
 
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG, "setUserVisibleHint: refresh data"); //Test output
+
+        // Refresh tab data
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit();
+        }
     }
 }

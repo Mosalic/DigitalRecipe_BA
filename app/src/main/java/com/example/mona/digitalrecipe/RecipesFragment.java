@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,14 @@ import android.view.ViewGroup;
 public class RecipesFragment extends Fragment {
 
     View view;
+    private static final String TAG = "RecipesFragment"; //TAG for test outputs
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+        Log.d(TAG, "onCreateView"); //Test output
+
         view = inflater.inflate(R.layout.fragment_recipes, container, false);
         return view;
     }

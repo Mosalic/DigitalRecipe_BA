@@ -2,17 +2,21 @@ package com.example.mona.digitalrecipe;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
     //Variables
     private EditText etUsername, etPassword;
+    private static final String TAG = "RegisterActivity"; //TAG for test outputs
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Log.d(TAG, "onCreate"); //Test output
 
         //initialise
         etUsername = (EditText) findViewById(R.id.et_Username);
@@ -34,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     //execute from Register-Button
     public void onRegister(View view){
+        Log.d(TAG, "onRegister: Button clicked"); //Test output
+
         //get text from the userinputs
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
