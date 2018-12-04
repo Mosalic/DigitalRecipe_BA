@@ -16,16 +16,28 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.Policy;
 
 //this class stays in java, in Kotlin there are connection probems
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     private Context context;
     AlertDialog alertDialog;
+    private String str_userRole;
+    private String str_username;
+    private String str_userPassword;
+    private URL url;
+    private HttpURLConnection httpURLConnection ;
+    private String post_data;
+    private OutputStream outputStream;
+    private BufferedWriter bufferedWriter;
+    private InputStream inputStream;
+    private BufferedReader bufferedReader;
     private static final String TAG = "BackgroundHandler"; //TAG for test outputs
 
     public BackgroundHandler(Context ctx){
@@ -44,51 +56,15 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         if(type.equals("login")){
             Log.d(TAG, "doInBackground: type Login"); //Test output
 
-            try {
-                String str_userRole = params[1];
-                String str_username = params[2];
-                String str_userPassword = params[3];
+            setParams(params);
 
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            setAPIConnection(login_url, "POST");
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            setLoginData();
 
-                //"userRole", "userName" und "userPassword" insert to login.php
-                String post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
-                                     + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
-                                     + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
+            postingData(post_data);
 
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-
-                String result = "";
-                String line = "";
-                while((line = bufferedReader.readLine()) != null){
-                    result += line;
-                }
-
-                bufferedReader.close();
-                inputStream.close();
-
-                httpURLConnection.disconnect();
-
-                return result;
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return receivingData();
 
         }
         //Behavior for register
@@ -96,12 +72,11 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             Log.d(TAG, "doInBackground: type Register"); //Test output
 
             try {
-                String str_userRole = params[1];
-                String str_username = params[2];
-                String str_userPassword = params[3];
+                setParams(params);
+                //setAPIConnection(register_url, "POST");
 
-                URL url = new URL(register_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                url = new URL(register_url);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
@@ -145,6 +120,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         return null;
     }
 
+
+
     @Override
     protected void onPreExecute() {
         //super.onPreExecute();
@@ -169,8 +146,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             jsonString = jsonArray.getJSONObject(0).getString("id");
         }catch(JSONException e){
             Log.e(TAG, "unexpected JSONException");
+            jsonString = "unexpected JSONException";
         }
-
 
         alertDialog.setMessage(jsonString);
         alertDialog.show();
@@ -181,5 +158,82 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+    }
+
+
+    //own functions
+    private void setParams(String... params){
+        str_userRole = params[1];
+        str_username = params[2];
+        str_userPassword = params[3];
+    }
+
+    private void setAPIConnection(String str_url, String request_method){
+        try {
+            url = new URL(str_url);
+
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod(request_method);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setLoginData() {
+        //"userRole", "userName" und "userPassword" insert to login.php
+        try {
+            post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                    + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
+                    + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void postingData(String post_data) {
+        try {
+            outputStream = httpURLConnection.getOutputStream();
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String receivingData(){
+        String result = "";
+
+        try {
+            inputStream = httpURLConnection.getInputStream();
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+            String line = "";
+            while((line = bufferedReader.readLine()) != null){
+                result += line;
+            }
+
+            bufferedReader.close();
+            inputStream.close();
+
+            httpURLConnection.disconnect();
+
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Unexpected IOException, no result";
+        }
     }
 }
