@@ -1,14 +1,23 @@
 package com.example.mona.digitalrecipe;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity {
+import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+public class LoginActivity extends AppCompatActivity implements AsyncTaskCallback {
     //Variables
     private EditText etUsername, etPassword;
+    private AlertDialog alertDialog;
+    private String jsonID;
+    private boolean jsonIsUser;
     private static final String TAG = "LoginActivity"; //TAG for test outputs
 
     @Override
@@ -51,5 +60,38 @@ public class LoginActivity extends AppCompatActivity {
         //create instance of BackgroundWorker Class
         BackgroundHandler backgroundHandler = new BackgroundHandler(this);
         backgroundHandler.execute(type, userrole, username, password);
+    }
+
+    //test funtion call from async
+    public void returnResult(String id){
+
+    }
+
+    @Override
+    public void getAsyncResult(JSONArray jsonArray) {
+        //when id arrives start new Activity and pass the id with it
+        //initialize Dialog
+        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Login Status");
+
+        //get the id from the object index 0 (API just return one object with id for Login)
+        try {
+            jsonID = jsonArray.getJSONObject(0).getString("id");
+            jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Interface in LoginActivity getAsyncResult: " + jsonID); //Test output
+
+        //check if API returns if user exists in database
+        if(jsonIsUser == true){
+
+            alertDialog.setMessage(jsonID);
+            alertDialog.show();
+        }else {
+            alertDialog.setMessage("Überprüfen Sie ihre Angaben!");
+            alertDialog.show();
+        }
     }
 }

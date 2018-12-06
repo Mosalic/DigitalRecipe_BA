@@ -6,7 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-public class RegisterActivity extends AppCompatActivity {
+import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+
+import org.json.JSONArray;
+
+public class RegisterActivity extends AppCompatActivity implements AsyncTaskCallback {
     //Variables
     private EditText etUsername, etPassword;
     private static final String TAG = "RegisterActivity"; //TAG for test outputs
@@ -49,5 +53,10 @@ public class RegisterActivity extends AppCompatActivity {
         //create instance of BackgroundWorker Class
         BackgroundHandler backgroundHandler = new BackgroundHandler(this);
         backgroundHandler.execute(type, userrole, username, password);
+    }
+
+    @Override
+    public void getAsyncResult(JSONArray jsonArray) {
+
     }
 }

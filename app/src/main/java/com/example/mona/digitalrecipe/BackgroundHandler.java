@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,8 +28,9 @@ import java.security.Policy;
 //this class stays in java, in Kotlin there are connection probems
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
-    private Context context;
-    AlertDialog alertDialog;
+    //private Context context;
+    private AsyncTaskCallback asyncCallback;
+
     private String str_userRole;
     private String str_username;
     private String str_userPassword;
@@ -40,9 +43,16 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     private BufferedReader bufferedReader;
     private static final String TAG = "BackgroundHandler"; //TAG for test outputs
 
-    public BackgroundHandler(Context ctx){
+    public BackgroundHandler(AsyncTaskCallback ctx){
         Log.d(TAG, "Constructor"); //Test output
-        context = ctx;
+        asyncCallback = ctx;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        //super.onPreExecute();
+        Log.d(TAG, "onPreExecute"); //Test output
+
     }
 
     @Override
@@ -73,8 +83,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             try {
                 setParams(params);
-                //setAPIConnection(register_url, "POST");
 
+                //setAPIConnection(register_url, "POST");
                 url = new URL(register_url);
                 httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -122,37 +132,44 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
 
 
-    @Override
-    protected void onPreExecute() {
-        //super.onPreExecute();
-        Log.d(TAG, "onPreExecute"); //Test output
 
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
-    }
 
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);
         //JSONObject jsonObject;
-        JSONArray jsonArray;
-        String jsonString = "";
+        JSONArray jsonArray = null;
+        String jsonID = "";
+        boolean jsonIsUser = false;
+
         try{
-            /*jsonObject = new JSONObject(result);
-            jsonString = jsonObject.getString("id");*/
-            //parse result to JSON
+            //parse result into JSON
             jsonArray = new JSONArray(result);
-            //get the id from the object index 0 (API just return one object with id for Login)
-            jsonString = jsonArray.getJSONObject(0).getString("id");
+            /*//get the id from the object index 0 (API just return one object with id for Login)
+            jsonID = jsonArray.getJSONObject(0).getString("id");
+            jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));*/
         }catch(JSONException e){
             Log.e(TAG, "unexpected JSONException");
-            jsonString = "unexpected JSONException";
+
+            //set Default JSONArray when Exceptions executes
+            JSONObject jsonObject = new JSONObject();
+            jsonID = "unexpected JSONException";
+
+            try {
+                jsonObject.put("id", jsonID);
+                jsonObject.put("isUser", jsonIsUser);
+                jsonArray.put(jsonObject);
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+
+
         }
 
-        alertDialog.setMessage(jsonString);
-        alertDialog.show();
+        //transfer result back to the activity
+        asyncCallback.getAsyncResult(jsonArray);
 
-        Log.d(TAG, "onPostExecute: result: " + jsonString); //Test output result
+        Log.d(TAG, "onPostExecute: result: " + jsonID + ", " + jsonIsUser); //Test output result
     }
 
     @Override
@@ -162,12 +179,14 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
 
     //own functions
+    //set the Parameter from the Login
     private void setParams(String... params){
         str_userRole = params[1];
         str_username = params[2];
         str_userPassword = params[3];
     }
 
+    //open connection to API/database
     private void setAPIConnection(String str_url, String request_method){
         try {
             url = new URL(str_url);
@@ -185,6 +204,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     }
 
+    //set posting data
     private void setLoginData() {
         //"userRole", "userName" und "userPassword" insert to login.php
         try {
