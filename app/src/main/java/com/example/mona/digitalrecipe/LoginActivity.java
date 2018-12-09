@@ -66,43 +66,42 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
        userIsLoggedIn(username, true);
     }
 
-    //test funtion call from async
-    public void returnResult(String id){
-
-    }
 
     //method from Interface, get result back from BackgroundHandler
     @Override
-    public void getAsyncResult(JSONArray jsonArray) {
+    public void getAsyncResult(JSONArray jsonArray, String type) {
         //when id arrives start new Activity and pass the id with it, stop the thread
         backgroundHandler.cancel(true);
 
-        //initialize Dialog
-        alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Login Status");
+        if(type.equals("login")){
 
-        //get the id from the object index 0 (API just return one object with id for Login)
-        try {
-            jsonID = jsonArray.getJSONObject(0).getString("id");
-            jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            //initialize Dialog
+            alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Login Status");
 
-        Log.d(TAG, "Interface in LoginActivity getAsyncResult: " + jsonID); //Test output
+            //get the id from the object index 0 (API just return one object with id for Login)
+            try {
+                jsonID = jsonArray.getJSONObject(0).getString("id");
+                jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        //check if API returns if user exists in database
-        if(jsonIsUser == true){
-            //Testausspielung zeigt das Result an in einem Dialog
-            /*alertDialog.setMessage(jsonID);
-            alertDialog.show();*/
+            Log.d(TAG, "Interface in LoginActivity getAsyncResult: " + jsonID); //Test output
 
-            //bei richtigem Login wird der User weitergeleitet
-            userIsLoggedIn(jsonID, jsonIsUser);
+            //check if API returns if user exists in database
+            if(jsonIsUser == true){
+                //Testausspielung zeigt das Result an in einem Dialog
+                /*alertDialog.setMessage(jsonID);
+                alertDialog.show();*/
 
-        }else {
-            alertDialog.setMessage("Überprüfen Sie ihre Angaben!");
-            alertDialog.show();
+                //bei richtigem Login wird der User weitergeleitet
+                userIsLoggedIn(jsonID, jsonIsUser);
+
+            }else {
+                alertDialog.setMessage("Überprüfen Sie ihre Angaben!");
+                alertDialog.show();
+            }
         }
     }
 

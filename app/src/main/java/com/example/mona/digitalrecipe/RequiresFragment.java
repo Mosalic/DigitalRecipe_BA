@@ -1,5 +1,6 @@
 package com.example.mona.digitalrecipe;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,60 +11,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
-
-import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RequiresFragment extends Fragment implements AsyncTaskCallback {
+public class RequiresFragment extends Fragment{
 
     View view;
     private ListView listView;
-    private BackgroundHandler backgroundHandler;
+    private Context context;
     private static final String TAG = "RequiresFragment"; //TAG for test outputs
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_requires, container, false);
-        Log.d(TAG, "onCreateView"); //Test output
 
         listView = view.findViewById(R.id.listView);
+        context = container.getContext();
 
-        //create instance of BackgroundWorker Class
-        String username = "testname";
-        String password = "testpasswort";
-        String type = "getRequires"; //ändern zu home oder getRequires
-        String userrole = "Patienten";
-        //backgroundHandler = new BackgroundHandler(this );
-        //backgroundHandler.execute(type, userrole, username, password);
+        //get transfered parameter from HomeActivity
+        if(getArguments() != null){
+            String userID = getArguments().getString("id");
+            ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
+            Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
+            setListViewContent(jsonList);
+        }
 
-        //Create test Requires for now, later get them from the database
-        Require require1 = new Require("Mona", "Patropazol", "Magenschmerzen");
-        Require require2 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
-        Require require3 = new Require("Doro", "Schnaps", "Verdauung");
-        Require require4 = new Require("Norbert", "Schlaf", "Migräne");
-        Require require5 = new Require("Mona", "Patropazol", "Magenschmerzen");
-        Require require6 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
-        Require require7 = new Require("Doro", "Schnaps", "Verdauung");
-        Require require8 = new Require("Norbert", "Schlaf", "Migräne");
 
-        //initialise arraylist and add requires
-        ArrayList<Require> requireList = new ArrayList<>();
-        requireList.add(require1);
-        requireList.add(require2);
-        requireList.add(require3);
-        requireList.add(require4);
-        requireList.add(require5);
-        requireList.add(require6);
-        requireList.add(require7);
-        requireList.add(require8);
-
-        //Adapter declaration
-        RequireListAdapter requireAdapter = new RequireListAdapter(container.getContext(), R.layout.list_item_require, requireList);
-        listView.setAdapter(requireAdapter);
 
         return view;
     }
@@ -83,8 +61,55 @@ public class RequiresFragment extends Fragment implements AsyncTaskCallback {
         }
     }
 
-    @Override
-    public void getAsyncResult(JSONArray jsonArray) {
+    private void setListViewContent(ArrayList<String> arrayList){
+        //initialise arraylist and add requires
+        ArrayList<Require> requireList = new ArrayList<>();
+        Log.d(TAG, "setListViewContent "); //Test output
 
+        for(int i = 0; i < arrayList.size(); i++){
+            try {
+                //create JSON
+                JSONObject jsonObject = new JSONObject(arrayList.get(i));
+
+                String user = ( String) jsonObject.get("ver_nummer");
+                String complaint = ( String) jsonObject.get("beschwerden");
+                String medicine = ( String) jsonObject.get("med_name");
+                Log.d(TAG, "setListViewContent: user, complaint, medicine: " + user + ", " + complaint +", " + medicine); //Test output
+
+                Require require = new Require(user, medicine, complaint);
+                requireList.add(require);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+            //jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));
+            //Log.d(TAG, "setListViewContent: " + jsonList.get(i)); //Test output
+
+        //Test requires
+          /*Require require1 = new Require("Mona", "Patropazol", "Magenschmerzen");
+            Require require2 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
+            Require require3 = new Require("Doro", "Schnaps", "Verdauung");
+            Require require4 = new Require("Norbert", "Schlaf", "Migräne");
+            Require require5 = new Require("Mona", "Patropazol", "Magenschmerzen");
+            Require require6 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
+            Require require7 = new Require("Doro", "Schnaps", "Verdauung");
+            Require require8 = new Require("Norbert", "Schlaf", "Migräne");
+
+
+         requireList.add(require1);
+            requireList.add(require2);
+            requireList.add(require3);
+            requireList.add(require4);
+            requireList.add(require5);
+            requireList.add(require6);
+            requireList.add(require7);
+            requireList.add(require8);*/
+
+
+        //Adapter declaration
+        RequireListAdapter requireAdapter = new RequireListAdapter(context, R.layout.list_item_require, requireList);
+        listView.setAdapter(requireAdapter);
     }
 }

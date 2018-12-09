@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements AsyncTaskCall
     }
 
     @Override
-    public void getAsyncResult(JSONArray jsonArray) {
+    public void getAsyncResult(JSONArray jsonArray, String type) {
 
     }
 }
