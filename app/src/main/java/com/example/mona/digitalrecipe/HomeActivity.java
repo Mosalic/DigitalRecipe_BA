@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private Boolean isLoggedIn;
+    private String userID;
+    private Bundle bundleFragment;
     private static final String TAG = "HomeActivity"; //TAG for test outputs
 
     @Override
@@ -20,13 +23,25 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate"); //Test output
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            userID = bundle.getString("id");
+            isLoggedIn = bundle.getBoolean("isLoggedIn");
+        }
+        Log.d(TAG, "onCreate Extras: " + userID + ", " + isLoggedIn); //Test output
+
         //get Bottom navigation by id and add listener
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_id);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        //set start fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, new RecipeListFragment()).commit();
+        //prepare bundle for pass parameter from activity to fragment
+        bundleFragment = new Bundle();
+        bundleFragment.putString("params", userID);
+       //RecipeListFragment recipeListFragment;
 
+        //set start fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, createRecipeListFragments()).commit();
+        //recipeListFragment.setArguments(bundleFragment);
     }
 
     //set Listener
@@ -40,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
                     //check which item was clicked and create associated fragment
                     switch (item.getItemId()){
                         case R.id.nav_recipe:
-                            selectedFragment = new RecipeListFragment();
+                            selectedFragment =  createRecipeListFragments();//new RecipeListFragment();
                             break;
                         case R.id.nav_doc:
                             selectedFragment = new ShowDoctorsFragment();
@@ -56,4 +71,11 @@ public class HomeActivity extends AppCompatActivity {
                     return true; //select item
                 }
             };
+
+    //declaration of new Fragment and transfer the parameter from the HomeActivity
+    private RecipeListFragment createRecipeListFragments(){
+        RecipeListFragment recipeListFragment = new RecipeListFragment();
+        recipeListFragment.setArguments(bundleFragment);
+        return recipeListFragment;
+    }
 }

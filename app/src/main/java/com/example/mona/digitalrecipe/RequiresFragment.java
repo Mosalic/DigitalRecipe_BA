@@ -10,12 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
-public class RequiresFragment extends Fragment {
+public class RequiresFragment extends Fragment implements AsyncTaskCallback {
 
     View view;
     private ListView listView;
+    private BackgroundHandler backgroundHandler;
     private static final String TAG = "RequiresFragment"; //TAG for test outputs
 
     @Nullable
@@ -26,6 +31,14 @@ public class RequiresFragment extends Fragment {
         Log.d(TAG, "onCreateView"); //Test output
 
         listView = view.findViewById(R.id.listView);
+
+        //create instance of BackgroundWorker Class
+        String username = "testname";
+        String password = "testpasswort";
+        String type = "getRequires"; //ändern zu home oder getRequires
+        String userrole = "Patienten";
+        //backgroundHandler = new BackgroundHandler(this );
+        //backgroundHandler.execute(type, userrole, username, password);
 
         //Create test Requires for now, later get them from the database
         Require require1 = new Require("Mona", "Patropazol", "Magenschmerzen");
@@ -68,5 +81,10 @@ public class RequiresFragment extends Fragment {
                     .attach(this)
                     .commit();
         }
+    }
+
+    @Override
+    public void getAsyncResult(JSONArray jsonArray) {
+
     }
 }
