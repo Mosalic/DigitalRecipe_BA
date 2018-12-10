@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.mona.digitalrecipe.HomeActivity;
+import com.example.mona.digitalrecipe.BackgroundHandler;
 import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
 
 import org.json.JSONArray;
@@ -25,13 +27,13 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(com.example.mona.digitalrecipe.R.layout.activity_login);
 
         Log.d(TAG, "onCreate"); //Test output
 
         //initialise
-        etUsername = (EditText) findViewById(R.id.et_Username);
-        etPassword = (EditText) findViewById(R.id.et_Password);
+        etUsername = (EditText) findViewById(com.example.mona.digitalrecipe.R.id.et_Username);
+        etPassword = (EditText) findViewById(com.example.mona.digitalrecipe.R.id.et_Password);
     }
 
     //execute from Login-Button

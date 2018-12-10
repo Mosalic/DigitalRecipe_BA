@@ -14,7 +14,7 @@ import com.example.mona.digitalrecipe.Require;
 
 import java.util.ArrayList;
 
-public class RequireListAdapter extends ArrayAdapter<Require> {
+public class RecipeListAdapter extends ArrayAdapter<Require> {
 
     private Context context;
     private int resource;
@@ -22,7 +22,7 @@ public class RequireListAdapter extends ArrayAdapter<Require> {
     private static final String TAG = "RequireListAdapter"; //TAG for test outputs
 
     //Constructor
-    public RequireListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Require> objects) {
+    public RecipeListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Require> objects) {
         super(context, resource, objects);
         Log.d(TAG, "Constructor"); //Test output
         this.context = context;

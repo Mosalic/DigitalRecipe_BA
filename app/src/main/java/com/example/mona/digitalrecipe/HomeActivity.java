@@ -10,7 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.mona.digitalrecipe.BackgroundHandler;
 import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.ProfileFragment;
+import com.example.mona.digitalrecipe.RecipeListFragment;
+import com.example.mona.digitalrecipe.ShowDoctorsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,14 +27,14 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
     private Boolean isLoggedIn;
     private String userID;
     private Bundle bundleFragment;
-    private  RecipeListFragment recipeListFragment;
+    private RecipeListFragment recipeListFragment;
     private BackgroundHandler backgroundHandler;
     private static final String TAG = "HomeActivity"; //TAG for test outputs
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(com.example.mona.digitalrecipe.R.layout.activity_home);
 
         Log.d(TAG, "onCreate"); //Test output
 
@@ -43,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
         Log.d(TAG, "onCreate Extras: " + userID + ", " + isLoggedIn); //Test output
 
         //get Bottom navigation by id and add listener
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_id);
+        BottomNavigationView bottomNav = findViewById(com.example.mona.digitalrecipe.R.id.bottom_navigation_id);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         //prepare bundle for pass parameter from activity to fragment
@@ -69,19 +73,19 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
 
                     //check which item was clicked and create associated fragment
                     switch (item.getItemId()){
-                        case R.id.nav_recipe:
+                        case com.example.mona.digitalrecipe.R.id.nav_recipe:
                             selectedFragment =  createRecipeListFragments();//new RecipeListFragment();
                             break;
-                        case R.id.nav_doc:
+                        case com.example.mona.digitalrecipe.R.id.nav_doc:
                             selectedFragment = new ShowDoctorsFragment();
                             break;
-                        case R.id.nav_profile:
+                        case com.example.mona.digitalrecipe.R.id.nav_profile:
                             selectedFragment = new ProfileFragment();
                             break;
                     }
 
                     //show associated fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(com.example.mona.digitalrecipe.R.id.fragment_container_id, selectedFragment).commit();
 
                     return true; //select item
                 }
@@ -122,7 +126,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
                     bundleFragment.putStringArrayList("requireArray", requireList);
 
                     //set start fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id, createRecipeListFragments()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(com.example.mona.digitalrecipe.R.id.fragment_container_id, createRecipeListFragments()).commit();
 
                 }else{
                     //no Require in database, show empty Fragment
