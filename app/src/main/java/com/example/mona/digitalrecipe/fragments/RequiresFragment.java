@@ -34,7 +34,7 @@ public class RequiresFragment extends Fragment{
         //return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_requires, container, false);
 
-        listView = view.findViewById(R.id.listView);
+        listView = view.findViewById(R.id.requireListView);
         context = container.getContext();
 
         //get transfered parameter from HomeActivity
@@ -44,8 +44,6 @@ public class RequiresFragment extends Fragment{
             Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
             setListViewContent(jsonList);
         }
-
-
 
         return view;
     }
