@@ -48,6 +48,7 @@ public class RecipeListFragment extends Fragment {
             Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
 
             requiresFragment.setArguments(getArguments());
+            recipesFragment.setArguments(getArguments()); //eigentlich brauche ich nur id
 
         }
 

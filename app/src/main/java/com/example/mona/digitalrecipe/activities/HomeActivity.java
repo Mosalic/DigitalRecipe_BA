@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
 
     @Override
     public void getAsyncResult(JSONArray jsonArray, String type) {
-        //when id arrives start new Activity and pass the id with it, stop the thread
+        //when id arrives show Fragment, stop the thread
 
         String jsonID = "";
 

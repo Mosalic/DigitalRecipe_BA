@@ -27,8 +27,6 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //private Context context;
     private AsyncTaskCallback asyncCallback;
-
-
     private String type;
     private String str_userRole;
     private String str_username;
@@ -61,6 +59,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         String login_url = "http://192.168.0.101/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
         String register_url = "http://10.0.2.2/API_Data/registerUser.php";
         String getRequires_url = "http://192.168.0.101/API_Data/getRequires.php";
+        String getRecipes_url = "http://192.168.0.101/API_Data/getRecipes.php";
 
         //Behavior for Login
         if(type.equals("login")){
@@ -132,6 +131,24 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             String str_userID = params[2];
 
             setAPIConnection(getRequires_url, "POST");
+
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            postingData(post_data);
+
+            return receivingData();
+        }else if (type.equals("getRecipes")){
+            Log.d(TAG, "doInBackground: type getRecipes"); //Test output
+
+            str_userRole = params[1];
+            String str_userID = params[2];
+
+            setAPIConnection(getRecipes_url, "POST");
 
             try {
                 post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
