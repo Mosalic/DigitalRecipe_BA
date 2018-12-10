@@ -1,9 +1,9 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.asynctasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;

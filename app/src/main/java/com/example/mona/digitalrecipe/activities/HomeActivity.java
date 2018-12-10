@@ -1,7 +1,6 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.activities;
 
 
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,11 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.mona.digitalrecipe.BackgroundHandler;
-import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
-import com.example.mona.digitalrecipe.ProfileFragment;
-import com.example.mona.digitalrecipe.RecipeListFragment;
-import com.example.mona.digitalrecipe.ShowDoctorsFragment;
+import com.example.mona.digitalrecipe.asynctasks.BackgroundHandler;
+import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.fragments.ProfileFragment;
+import com.example.mona.digitalrecipe.fragments.RecipeListFragment;
+import com.example.mona.digitalrecipe.fragments.ShowDoctorsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;

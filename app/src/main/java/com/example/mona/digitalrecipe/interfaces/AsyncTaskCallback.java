@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe.Interfaces;
+package com.example.mona.digitalrecipe.interfaces;
 
 import org.json.JSONArray;
 

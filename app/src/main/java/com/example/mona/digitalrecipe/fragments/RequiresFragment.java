@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.mona.digitalrecipe.Require;
+import com.example.mona.digitalrecipe.R;
+import com.example.mona.digitalrecipe.models.Require;
+import com.example.mona.digitalrecipe.adapters.RequireListAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.models;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.mona.digitalrecipe.Interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.asynctasks.BackgroundHandler;
+import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.R;
 
 import org.json.JSONArray;
 

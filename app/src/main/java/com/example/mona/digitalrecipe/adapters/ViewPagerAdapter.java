@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

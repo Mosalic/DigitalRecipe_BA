@@ -1,4 +1,4 @@
-package com.example.mona.digitalrecipe;
+package com.example.mona.digitalrecipe.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class RecipesFragment extends Fragment {
+import com.example.mona.digitalrecipe.R;
+
+public class ShowDoctorsFragment extends Fragment {
 
     View view;
-    private static final String TAG = "RecipesFragment"; //TAG for test outputs
+    private static final String TAG = "ShowDoctorsFragment"; //TAG for test outputs
 
     @Nullable
     @Override
@@ -20,7 +22,7 @@ public class RecipesFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         Log.d(TAG, "onCreateView"); //Test output
 
-        view = inflater.inflate(R.layout.fragment_recipes, container, false);
+        view = inflater.inflate(R.layout.fragment_doctors, container, false);
         return view;
     }
 }
