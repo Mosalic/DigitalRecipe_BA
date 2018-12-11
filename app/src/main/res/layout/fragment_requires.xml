@@ -11,6 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <Button
+        android:id="@+id/button_createRequire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_button"
+        android:text="Neu"
+        app:layout_constraintBottom_toTopOf="@+id/requireListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.22000003" />
+
     <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
