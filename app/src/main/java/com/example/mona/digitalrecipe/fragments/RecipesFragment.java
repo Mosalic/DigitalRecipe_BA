@@ -178,7 +178,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
 
 
                 }else{
-                    //no Require in database, show empty Fragment
+                    //no Recipe in database, show empty Fragment
                     Log.d(TAG, "Interface getAsyncResult: No Recipes"); //Test output
                 }
 

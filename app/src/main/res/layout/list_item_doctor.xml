@@ -41,6 +41,13 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
+        <TextView
+            android:id="@+id/list_item_textView5"
+            android:text="TextView4"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
     </LinearLayout>
 
 </LinearLayout>

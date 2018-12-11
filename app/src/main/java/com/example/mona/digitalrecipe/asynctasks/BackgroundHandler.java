@@ -60,6 +60,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         String register_url = "http://10.0.2.2/API_Data/registerUser.php";
         String getRequires_url = "http://192.168.0.101/API_Data/getRequires.php";
         String getRecipes_url = "http://192.168.0.101/API_Data/getRecipes.php";
+        String getDoctors_url = "http://192.168.0.101/API_Data/getDoctors.php";
 
         //Behavior for Login
         if(type.equals("login")){
@@ -160,6 +161,22 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             postingData(post_data);
 
             return receivingData();
+        }else if (type.equals("getDoctors")){
+            Log.d(TAG, "doInBackground: type getDoctors"); //Test output
+
+            str_userRole = params[1];
+
+            setAPIConnection(getDoctors_url, "POST");
+
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            postingData(post_data);
+
+            return receivingData();
         }
 
         Log.d(TAG, "doInBackground: receivingData null "); //Test output result
@@ -171,7 +188,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);
         //JSONObject jsonObject;
-        Log.d(TAG, "onPostExecute"); //Test output result
+        Log.d(TAG, "onPostExecute result:" + result); //Test output result
 
         JSONArray jsonArray = null;
         String jsonID = "";

@@ -8,14 +8,14 @@ public class Doctor {
 
     private String office;
     private String phoneNumber;
-    private ArrayList<String> adress;
+    private Adress adress;
     private String title;
     private String firstName;
     private String lastName;
     private static final String TAG = "Doctor"; //TAG for test outputs
 
     //Constructor
-    public Doctor(String firstName, String lastName, String title, String office, String phoneNumber, ArrayList<String> adress) {
+    public Doctor(String firstName, String lastName, String title, String office, String phoneNumber, Adress adress) {
         Log.d(TAG, "Constructor"); //Test output
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,11 +42,11 @@ public class Doctor {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<String> getAdress() {
+    public Adress getAdress() {
         return adress;
     }
 
-    public void setAdress(ArrayList<String> adress) {
+    public void setAdress(Adress adress) {
         this.adress = adress;
     }
 
