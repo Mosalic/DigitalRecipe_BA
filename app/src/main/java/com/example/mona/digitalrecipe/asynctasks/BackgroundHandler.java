@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //private Context context;
+    private  String ipAdress ="192.168.0.101"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
     private AsyncTaskCallback asyncCallback;
     private String type;
     private String str_userRole;
@@ -56,12 +57,12 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... params) {
 
         type = params[0];
-        String login_url = "http://192.168.0.101/API_Data/login.php"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
-        String register_url = "http://10.0.2.2/API_Data/registerUser.php";
-        String getRequires_url = "http://192.168.0.101/API_Data/getRequires.php";
-        String getRecipes_url = "http://192.168.0.101/API_Data/getRecipes.php";
-        String getDoctors_url = "http://192.168.0.101/API_Data/getDoctors.php";
-        String releaseRequire_url = "http://192.168.0.101/API_Data/releaseRequire.php";
+        String login_url = "http://" + ipAdress + "/API_Data/login.php";
+        String register_url = "http://" + ipAdress + "/API_Data/registerUser.php";
+        String getRequires_url = "http://" + ipAdress + "/API_Data/getRequires.php";
+        String getRecipes_url = "http://" + ipAdress + "/API_Data/getRecipes.php";
+        String getDoctors_url = "http://" + ipAdress + "/API_Data/getDoctors.php";
+        String releaseRequire_url = "http://" + ipAdress + "/API_Data/releaseRequire.php";
 
         //Behavior for Login
         if(type.equals("login")){
