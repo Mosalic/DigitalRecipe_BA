@@ -61,6 +61,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         String getRequires_url = "http://192.168.0.101/API_Data/getRequires.php";
         String getRecipes_url = "http://192.168.0.101/API_Data/getRecipes.php";
         String getDoctors_url = "http://192.168.0.101/API_Data/getDoctors.php";
+        String releaseRequire_url = "http://192.168.0.101/API_Data/releaseRequire.php";
 
         //Behavior for Login
         if(type.equals("login")){
@@ -170,6 +171,30 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             try {
                 post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            postingData(post_data);
+
+            return receivingData();
+        }else if (type.equals("createNewRequire")){
+            Log.d(TAG, "doInBackground: type createNewRequire"); //Test output
+
+            str_userRole = params[1];
+            String str_userID = params[2];
+            String str_usersComplaint = params[3];
+            String str_usersMedicine = params[4];
+            String str_usersDoctor = params[5];
+
+            setAPIConnection(releaseRequire_url, "POST");
+
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8") + "&"
+                        + URLEncoder.encode("usersComplaint", "UTF-8") + "=" + URLEncoder.encode(str_usersComplaint, "UTF-8") + "&"
+                        + URLEncoder.encode("usersMedicine", "UTF-8") + "=" + URLEncoder.encode(str_usersMedicine, "UTF-8") + "&"
+                        + URLEncoder.encode("usersDoctor", "UTF-8") + "=" + URLEncoder.encode(str_usersDoctor, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
