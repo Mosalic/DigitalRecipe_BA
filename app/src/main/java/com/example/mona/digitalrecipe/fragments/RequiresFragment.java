@@ -91,12 +91,12 @@ public class RequiresFragment extends Fragment{
                 //create JSON
                 JSONObject jsonObject = new JSONObject(arrayList.get(i));
 
-                String user = ( String) jsonObject.get("ver_nummer");
+                String doctor = ( String) jsonObject.get("LANR_fk");
                 String complaint = ( String) jsonObject.get("beschwerden");
                 String medicine = ( String) jsonObject.get("med_name");
-                Log.d(TAG, "setListViewContent: user, complaint, medicine: " + user + ", " + complaint +", " + medicine); //Test output
+                Log.d(TAG, "setListViewContent: user, complaint, medicine: " + doctor + ", " + complaint +", " + medicine); //Test output
 
-                Require require = new Require(user, medicine, complaint);
+                Require require = new Require(doctor, medicine, complaint);
                 requireList.add(require);
             } catch (JSONException e) {
                 e.printStackTrace();

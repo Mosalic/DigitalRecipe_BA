@@ -52,7 +52,7 @@ public class RequireListAdapter extends ArrayAdapter<Require> {
         TextView tvComplaint = (TextView) convertView.findViewById(R.id.list_item_textView3);
 
         //set TextViews
-        tvName.setText(name);
+        tvName.setText("An: " + name);
         tvMedicine.setText("Medikament: " + medicine);
         tvComplaint.setText("Beschwerde: " + complaint);
 
