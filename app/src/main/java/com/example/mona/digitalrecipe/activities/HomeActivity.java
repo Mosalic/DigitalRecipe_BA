@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
                             break;
                         case com.example.mona.digitalrecipe.R.id.nav_profile:
                             selectedFragment = new ProfileFragment();
+                            selectedFragment.setArguments(bundleFragment);
                             break;
                     }
 

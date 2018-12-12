@@ -11,7 +11,7 @@
         android:id="@+id/fragment_container_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_red_dark"
+        android:background="@color/recipeAccentLight"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation"
-        android:background="@android:color/white"/>
+        android:background="@color/recipeAccent"/>
 
 
 </android.support.constraint.ConstraintLayout>

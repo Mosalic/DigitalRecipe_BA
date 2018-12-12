@@ -1,6 +1,7 @@
 package com.example.mona.digitalrecipe.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.mona.digitalrecipe.R;
+import com.example.mona.digitalrecipe.activities.NewRequireActivity;
 import com.example.mona.digitalrecipe.models.Require;
 import com.example.mona.digitalrecipe.adapters.RequireListAdapter;
 
@@ -35,15 +38,30 @@ public class RequiresFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_requires, container, false);
 
         listView = view.findViewById(R.id.requireListView);
+        Button btnCreateRequire = (Button) view.findViewById(R.id.button_createRequire);
         context = container.getContext();
 
+        Log.d(TAG, "onCreate" ); //Test output
+
         //get transfered parameter from HomeActivity
+        String userID = "";
         if(getArguments() != null){
-            String userID = getArguments().getString("id");
+            userID = getArguments().getString("id");
             ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
             Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
             setListViewContent(jsonList);
         }
+
+        //set Listener for Button
+        final String user_ID = userID; //muss final sein damit es im Listener verwendet werden kann?
+        btnCreateRequire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NewRequireActivity.class);
+                intent.putExtra("userID", user_ID);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

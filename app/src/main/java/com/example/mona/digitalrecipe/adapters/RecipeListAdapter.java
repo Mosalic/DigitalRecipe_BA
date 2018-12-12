@@ -53,10 +53,10 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         TextView tvMedicinePortion = (TextView) convertView.findViewById(R.id.list_item_textView4);
 
         //set TextViews
-        tvNameDoctor.setText(nameDoctor);
+        tvNameDoctor.setText("Von: " + nameDoctor);
         tvName.setText(name);
-        tvMedicine.setText(medicine);
-        tvMedicinePortion.setText(medicinePortion);
+        tvMedicine.setText("Medikament: " + medicine);
+        tvMedicinePortion.setText("Menge " + medicinePortion);
 
         return convertView;
     }

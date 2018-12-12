@@ -19,6 +19,7 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
 
     private EditText etDoctor, etComplaint, etMedicine;
     private String type;
+    private String userID = "";
     private BackgroundHandler backgroundHandler;
     private static final String TAG = "NewRequireActivity"; //TAG for test outputs
 
@@ -27,11 +28,17 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
         super.onCreate(savedInstanceState);
         setContentView(com.example.mona.digitalrecipe.R.layout.activity_new_require);
 
-        Log.d(TAG, "onCreate"); //Test output
-
         etDoctor = (EditText) findViewById(R.id.et_doctor);
         etComplaint = (EditText) findViewById(R.id.et_complaint);
         etMedicine = (EditText) findViewById(R.id.et_medicine);
+
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            userID = bundle.getString("userID");
+        }
+
+        Log.d(TAG, "onCreate mit ID: " + userID); //Test output
     }
 
     @Override
@@ -40,6 +47,8 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
 
         if(type.equals("createNewRequire")){
             Log.d(TAG, "Interface getAsyncResult"); //Test output
+            //später wenn eine Antowrt kommt, im Moment noch buggy
+            finish();
             //callback result with infos if require is created
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(0); //get first object
@@ -74,13 +83,13 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
         String usersComplaint = etComplaint.getText().toString();
         String usersMedicine = etMedicine.getText().toString();
         String usersDoctor = etDoctor.getText().toString(); //id/LANR wird benötigt
-        String usersId = "000000pati"; //id/versichertennummer wird benötigt
+        //String userID = "000000pati"; //id/versichertennummer wird benötigt
         type = "createNewRequire";
         String userrole = "Patienten";
 
         //create instance of BackgroundWorker Class
         backgroundHandler = new BackgroundHandler(this);
-        backgroundHandler.execute(type, userrole, usersId, usersComplaint, usersMedicine, usersDoctor);
+        backgroundHandler.execute(type, userrole, userID, usersComplaint, usersMedicine, usersDoctor);
     }
 
 
