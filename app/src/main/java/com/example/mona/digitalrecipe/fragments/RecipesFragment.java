@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mona.digitalrecipe.R;
 import com.example.mona.digitalrecipe.adapters.RecipeListAdapter;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 public class RecipesFragment extends Fragment implements AsyncTaskCallback {
 
     View view;
+    View itemView;
     private ListView listView;
     private Context context;
     private BackgroundHandler backgroundHandler;
@@ -79,7 +83,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     private void setListViewContent(JSONArray jsonArray){
         //ArrayList<String> arrayList parameter in function maybe
         //initialise arraylist and add requires
-        ArrayList<Recipe> recipeList = new ArrayList<>();
+        final ArrayList<Recipe> recipeList = new ArrayList<>();
         Log.d(TAG, "setListViewContent "); //Test output
 
         /*for(int i = 0; i < arrayList.size(); i++){
@@ -147,6 +151,15 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
         RecipeListAdapter recipeAdapter = new RecipeListAdapter(context, R.layout.list_item_recipe, recipeList);
         //Log.d(TAG, "setListViewContent null test: adapter, layout: " + recipeAdapter + ", " + R.layout.list_item_recipe); //Test output
         listView.setAdapter(recipeAdapter);
+
+        //set ClickListener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "onClickItem: " + recipeList.get(i).getMedicine());
+                //Toast.makeText(context, recipeList.get(i).getPatientsName(), Toast.LENGTH_LONG);
+            }
+        });
     }
 
     //get Result from BackgroundHandler

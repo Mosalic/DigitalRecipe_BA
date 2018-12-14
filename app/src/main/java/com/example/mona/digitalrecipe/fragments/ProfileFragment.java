@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.example.mona.digitalrecipe.R;
 import com.example.mona.digitalrecipe.asynctasks.BackgroundHandler;
 import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
+import com.example.mona.digitalrecipe.models.Adress;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment implements AsyncTaskCallback {
 
@@ -26,6 +29,7 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
     private TextView tvName;
     private TextView tvStreet;
     private TextView tvCity;
+    private String userID = "";
     private BackgroundHandler backgroundHandler;
     private static final String TAG = "ProfileFragment"; //TAG for test outputs
 
@@ -44,17 +48,9 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
         tvStreet = view.findViewById(R.id.tv_profile_street);
         tvCity = view.findViewById(R.id.tv_profile_city);
 
-        tvUsername.setText("Username");
-        tvInsurance.setText("Versicherung");
-        tvInsuranceNr.setText("D00000001");
-        tvGeb.setText("05.03.1964");
-        tvName.setText("Dorothea Schmidt");
-        tvStreet.setText("Friedhofsweg 7");
-        tvCity.setText("20537 Hamburg");
 
+       //get transfered parameter from HomeActivity
 
-       /* //get transfered parameter from HomeActivity
-        String userID = "";
         if(getArguments() != null){
             userID = getArguments().getString("id");
             // ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
@@ -66,13 +62,58 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
         backgroundHandler = new BackgroundHandler(this);
         String type = "getPatients";
         String userrole = "Patienten";
-        backgroundHandler.execute(type, userrole, userID);*/
+        backgroundHandler.execute(type, userrole, userID);
 
         return view;
     }
 
     @Override
     public void getAsyncResult(JSONArray jsonArray, String type) {
+        String jsonID = "";
 
+        if(type.equals("getPatients")){
+            Log.d(TAG, "Interface getAsyncResult"); //Test output
+            //callback result with Patiens data
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(0); //get first object
+
+                //check if jsonobject is epmty or not
+                if(jsonObject.length() > 0){
+                    //not epmty
+                    //create and set Adress for Doc
+                    String idAdress = (String) jsonObject.get("id_adress");
+                    String adressStreet = (String) jsonObject.get("adress_street");
+                    String  adressStreetNr = (String) jsonObject.get("adress_street_nr");
+                    String adressPLZ = (String) jsonObject.get("adress_PLZ");
+                    String adressCity = (String) jsonObject.get("adress_city");
+                    Adress adress = new Adress(idAdress, adressStreet, adressStreetNr, adressPLZ, adressCity);
+
+                    //set other doc infos
+                    String insurance = (String) jsonObject.get("user_ver");
+                    String userName = (String) jsonObject.get("user_username");
+                    String userGeb = (String) jsonObject.get("user_geb");
+                    String firstName = (String) jsonObject.get("user_firstName");
+                    String lastName = (String) jsonObject.get("user_lastName");
+
+                    //set Content
+                    tvUsername.setText(userName);
+                    tvInsurance.setText(insurance);
+                    tvInsuranceNr.setText(userID);
+                    tvGeb.setText(userGeb);
+                    tvName.setText(firstName + " " + lastName);
+                    tvStreet.setText(adressStreet + " " + adressStreetNr);
+                    tvCity.setText(adressPLZ + " " + adressCity);
+
+                }else{
+                    //no Patient in database, show empty Fragment
+                    Log.d(TAG, "Interface getAsyncResult: No Patient found"); //Test output
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            backgroundHandler.cancel(true);
+        }
     }
 }

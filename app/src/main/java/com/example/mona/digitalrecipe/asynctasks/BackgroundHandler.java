@@ -26,7 +26,7 @@ import java.net.URLEncoder;
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //private Context context;
-    private  String ipAdress ="192.168.0.101"; //set WiFi IP (ipconfig 192.168.0.104), for localhost 10.0.2.2
+    private  String ipAdress ="192.168.0.101"; //set WiFi IP (ipconfig 192.168.0.101), HandyHotspot 192.168.43.178,for localhost 10.0.2.2
     private AsyncTaskCallback asyncCallback;
     private String type;
     private String str_userRole;
@@ -63,6 +63,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         String getRecipes_url = "http://" + ipAdress + "/API_Data/getRecipes.php";
         String getDoctors_url = "http://" + ipAdress + "/API_Data/getDoctors.php";
         String releaseRequire_url = "http://" + ipAdress + "/API_Data/releaseRequire.php";
+        String getPatients_url = "http://" + ipAdress + "/API_Data/getPatients.php";
 
         //Behavior for Login
         if(type.equals("login")){
@@ -172,6 +173,24 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             try {
                 post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            postingData(post_data);
+
+            return receivingData();
+        }else if (type.equals("getPatients")){
+            Log.d(TAG, "doInBackground: type getPatients"); //Test output
+
+            str_userRole = params[1];
+            String str_userID = params[2];
+
+            setAPIConnection(getPatients_url, "POST");
+
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
