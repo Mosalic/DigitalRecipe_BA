@@ -91,7 +91,11 @@ public class RequiresFragment extends Fragment{
                 //create JSON
                 JSONObject jsonObject = new JSONObject(arrayList.get(i));
 
-                String doctor = ( String) jsonObject.get("LANR_fk");
+
+                String docLastName = ( String) jsonObject.get("doc_lastName");
+                String docFirstName = ( String) jsonObject.get("doc_firstName");
+                String docTitle = ( String) jsonObject.get("doc_title");
+                String doctor = (docTitle + " " + docFirstName + " " + docLastName);
                 String complaint = ( String) jsonObject.get("beschwerden");
                 String medicine = ( String) jsonObject.get("med_name");
                 Log.d(TAG, "setListViewContent: user, complaint, medicine: " + doctor + ", " + complaint +", " + medicine); //Test output
