@@ -111,14 +111,23 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
                 //create JSON
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                String user = ( String) jsonObject.get("ver_nummer");
-                String doctor = ( String) jsonObject.get("LANR_fk");
+                String patID = ( String) jsonObject.get("ver_nummer");
+                String docID = ( String) jsonObject.get("LANR_fk");
+                String recipeID = ( String) jsonObject.get("id");
                 String medicine = ( String) jsonObject.get("med_name");
-                String medicinePortion = (String) jsonObject.get("med_menge");
+                String medForm = ( String) jsonObject.get("med_form");
+                String medPortion = (String) jsonObject.get("med_menge");
+                String medDate = ((String) jsonObject.get("med_datum")).substring(0, 10);  //DateFormat 2018-09-12 23:04 -> 2018-09-12
+                String noctu = ( String) String.valueOf(jsonObject.get("noctu"));
+                String autIdem = ( String) String.valueOf(jsonObject.get("aut_idem"));
+                String docTitle = ( String) jsonObject.get("doc_title");
+                String docFirstName = ( String) jsonObject.get("doc_firstName");
+                String docLastName = ( String) jsonObject.get("doc_lastName");
+                String doctor = docFirstName + " " + docLastName;
 
-                Log.d(TAG, "setListViewContent: user, doctor ,medicine, portion: " + user + ", " + doctor +", " + medicine + ", " + medicinePortion); //Test output
+                Log.d(TAG, "setListViewContent:  doctor ,medicine, portion: " +  ", " + doctor +", " + medicine + ", " + medPortion); //Test output
 
-                Recipe recipe = new Recipe(user, medicine, medicinePortion, doctor);
+                Recipe recipe = new Recipe(patID, docID, docTitle, doctor, recipeID, medicine, medForm, medPortion, medDate, noctu, autIdem);
                 recipeList.add(recipe);
             } catch (JSONException e) {
                 e.printStackTrace();

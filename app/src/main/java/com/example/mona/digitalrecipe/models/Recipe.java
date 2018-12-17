@@ -4,26 +4,81 @@ import android.util.Log;
 
 public class Recipe {
 
-    private String namePatient;
+
+    private String patID;
+    private String docID;
+
+
+
+    private String docTitle;
+    private String docName;
+    private String recipeID;
     private String medicine;
-    private String medicinePortion;
-    private String nameDoctor;
+    private String medForm;
+    private String medPortion;
+    private String medDate;
+    private String isNoctu;
+    private String isAutIdem;
+
     private static final String TAG = "Recipe"; //TAG for test outputs
 
-    public Recipe(String namePatient, String medicine, String medicinePortion, String nameDoctor) {
+    //Constructor
+    public Recipe(String patID, String docID, String docTitle, String docName, String recipeID, String medicine, String medForm, String medPortion, String medDate, String noctu, String autIdem) {
         Log.d(TAG, "Constructor"); //Test output
-        this.namePatient = namePatient;
+
+        this.patID = patID;
+        this.docID = docID;
+        this.docTitle = docTitle;
+        this.docName = docName;
+        this.recipeID = recipeID;
         this.medicine = medicine;
-        this.medicinePortion = medicinePortion;
-        this.nameDoctor = nameDoctor;
+        this.medForm = medForm;
+        this.medPortion = medPortion;
+        this.medDate = medDate;
+        this.isNoctu = noctu;
+        this.isAutIdem = autIdem;
     }
 
-    public String getPatientsName() {
-        return namePatient;
+
+    //Getter and Setter
+    public String getPatID() {
+        return patID;
     }
 
-    public void setPatientsName(String name) {
-        this.namePatient = name;
+    public void setPatID(String patID) {
+        this.patID = patID;
+    }
+
+    public String getDocID() {
+        return docID;
+    }
+
+    public void setDocID(String docID) {
+        this.docID = docID;
+    }
+
+    public String getDocTitle() {
+        return docTitle;
+    }
+
+    public void setDocTitle(String docTitle) {
+        this.docTitle = docTitle;
+    }
+
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
     }
 
     public String getMedicine() {
@@ -34,20 +89,46 @@ public class Recipe {
         this.medicine = medicine;
     }
 
-    public String getMedicinePortion() {
-        return medicinePortion;
+    public String getMedForm() {
+        return medForm;
     }
 
-    public void setMedicinePortion(String medicinePortion) {
-        this.medicinePortion = medicinePortion;
+    public void setMedForm(String medForm) {
+        this.medForm = medForm;
     }
 
-    public String getNameDoctor() {
-        return nameDoctor;
+    public String getMedPortion() {
+        return medPortion;
     }
 
-    public void setNameDoctor(String nameDoctor) {
-        this.nameDoctor = nameDoctor;
+    public void setMedPortion(String medPortion) {
+        this.medPortion = medPortion;
     }
+
+    public String getMedDate() {
+        return medDate;
+    }
+
+    public void setMedDate(String medDate) {
+        this.medDate = medDate;
+    }
+
+    public String getIsNoctu() {
+        return isNoctu;
+    }
+
+    public void setIsNoctu(String isNoctu) {
+        this.isNoctu = isNoctu;
+    }
+
+    public String getIsAutIdem() {
+        return isAutIdem;
+    }
+
+    public void setIsAutIdem(String isAutIdem) {
+        this.isAutIdem = isAutIdem;
+    }
+
+
 
 }

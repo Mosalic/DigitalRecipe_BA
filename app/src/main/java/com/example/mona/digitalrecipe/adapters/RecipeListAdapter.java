@@ -34,29 +34,40 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Log.d(TAG, "getView()"); //Test output
         //get Recipe Information
-        String name = getItem(position).getPatientsName();
+        String patID = getItem(position).getPatID();
+        String docID = getItem(position).getDocID();
+        String docTitle = getItem(position).getDocTitle();
+        String docName = getItem(position).getDocName();
+        String recipeID = getItem(position).getRecipeID();
         String medicine = getItem(position).getMedicine();
-        String medicinePortion = getItem(position).getMedicinePortion();
-        String nameDoctor = getItem(position).getNameDoctor();
+        String medForm = getItem(position).getMedForm();
+        String medPortion = getItem(position).getMedPortion();
+        String medDate = getItem(position).getMedDate();
+        String isNoctu = getItem(position).getIsNoctu();
+        String isAutIdem = getItem(position).getIsAutIdem();
 
         //Create RequireObject with the Informations
-        Recipe recipe = new Recipe(name, medicine,medicinePortion, nameDoctor);
+        Recipe recipe = new Recipe(patID, docID, docTitle, docName, recipeID, medicine, medForm, medPortion, medDate, isNoctu, isAutIdem);
 
         //??
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
         //get TextView from list_item_recipe.xml
-        TextView tvNameDoctor = (TextView) convertView.findViewById(R.id.list_item_textView1);
+        //TextView tv = (TextView) convertView.findViewById(R.id.list_item_textView1);
+        TextView tvTitleDoctor = (TextView) convertView.findViewById(R.id.list_item_textView5);
+        TextView tvNameDoctor = (TextView) convertView.findViewById(R.id.list_item_textView6);
         TextView tvName = (TextView) convertView.findViewById(R.id.list_item_textView2);
         TextView tvMedicine = (TextView) convertView.findViewById(R.id.list_item_textView3);
         TextView tvMedicinePortion = (TextView) convertView.findViewById(R.id.list_item_textView4);
 
         //set TextViews
-        tvNameDoctor.setText("Von: " + nameDoctor);
-        tvName.setText(name);
-        tvMedicine.setText("Medikament: " + medicine);
-        tvMedicinePortion.setText("Menge " + medicinePortion);
+        //tv.setText("Von: ");
+        tvTitleDoctor.setText(docTitle);
+        tvNameDoctor.setText(docName);
+        tvName.setText("Medikament: " + medicine);
+        tvMedicine.setText("Menge/Form: " + medPortion + " / " + medForm);
+        tvMedicinePortion.setText("Ausstellungsdatum: " + medDate);
 
         return convertView;
     }

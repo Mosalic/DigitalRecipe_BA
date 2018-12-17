@@ -6,14 +6,47 @@
     android:layout_height="match_parent"
     android:weightSum="100">
     
-    <TextView
+    <!--<TextView
         android:id="@+id/list_item_textView1"
         android:text="TextView1"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="70"/>
+        android:layout_weight="70"/>-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="75"
+        android:layout_margin="5dp">
+
+        <!--<TextView
+            android:id="@+id/list_item_textView1"
+            android:text="TextView2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>-->
+        <TextView
+            android:id="@+id/list_item_textView5"
+            android:text="TextView3"
+            android:layout_marginTop="5dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_item_textView6"
+            android:text="TextView4"
+            android:layout_marginTop="5dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -27,14 +60,14 @@
             android:id="@+id/list_item_textView2"
             android:text="TextView2"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/list_item_textView3"
             android:text="TextView3"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -42,7 +75,7 @@
             android:id="@+id/list_item_textView4"
             android:text="TextView4"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
