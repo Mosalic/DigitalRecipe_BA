@@ -35,6 +35,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     View view;
     View itemView;
     ArrayList<Recipe> recipeList;
+    private String userID = "";
     private ListView listView;
     private Context context;
     private BackgroundHandler backgroundHandler;
@@ -51,7 +52,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
         context = container.getContext();
 
         //get transfered parameter from HomeActivity
-        String userID = "";
+
         if(getArguments() != null){
             userID = getArguments().getString("id");
            // ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
@@ -188,18 +189,9 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     }
 
     private void showRecipe(int i, Recipe recipe){
-       /* ArrayList<String> recipeStringList = new ArrayList<>();
-        //add objects from jasonArray in arrayList
-        for(int j = 0; j < recipeList.size(); j++){
-            recipeStringList.add(recipeList.get(i).getString(j));
-            //Log.d(TAG, "Interface getAsyncResult get String: " + jsonArray.getString(i)); //Test output
-        }
-
-        bundleFragment.putStringArrayList("recipeArray", recipeStringList);*/
-
         Intent intent = new Intent(getActivity(), ShowRecipeActivity.class);
+        intent.putExtra("userID", userID);
         intent.putExtra("recipe", recipe);
-        //bundle.putStringArrayList("requireArray", recipeList.get(i));
         startActivity(intent);
     }
 

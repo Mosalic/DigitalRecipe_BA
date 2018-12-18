@@ -64,6 +64,8 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         String getDoctors_url = "http://" + ipAdress + "/API_Data/getDoctors.php";
         String releaseRequire_url = "http://" + ipAdress + "/API_Data/releaseRequire.php";
         String getPatients_url = "http://" + ipAdress + "/API_Data/getPatients.php";
+        String showRecipe_url = "http://" + ipAdress + "/API_Data/showRecipe.php";
+
 
         //Behavior for Login
         if(type.equals("login")){
@@ -217,6 +219,27 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
                         + URLEncoder.encode("usersComplaint", "UTF-8") + "=" + URLEncoder.encode(str_usersComplaint, "UTF-8") + "&"
                         + URLEncoder.encode("usersMedicine", "UTF-8") + "=" + URLEncoder.encode(str_usersMedicine, "UTF-8") + "&"
                         + URLEncoder.encode("usersDoctor", "UTF-8") + "=" + URLEncoder.encode(str_usersDoctor, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            postingData(post_data);
+
+            return receivingData();
+        }else if (type.equals("showRecipe")){
+            Log.d(TAG, "doInBackground: type showRequire"); //Test output
+
+            str_userRole = params[1];
+            String str_userID = params[2];
+            String str_recipeID = params[3];
+
+
+            setAPIConnection(showRecipe_url, "POST");
+
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8") + "&"
+                        + URLEncoder.encode("recipeID", "UTF-8") + "=" + URLEncoder.encode(str_recipeID, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

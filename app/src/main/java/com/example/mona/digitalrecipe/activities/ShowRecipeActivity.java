@@ -21,6 +21,7 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
 
     private TextView tvMedName, etComplaint, etMedicine;
     private String type;
+    private String userID = "";
     private String recipeID = "";
     private BackgroundHandler backgroundHandler;
     private static final String TAG = "ShowRecipeActivity"; //TAG for test outputs
@@ -30,21 +31,26 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_recipe);
 
-        tvMedName = (TextView) findViewById(R.id.tv_medName);
+        tvMedName = (TextView) findViewById(R.id.tv_recipe_medicine);
         /*etComplaint = (TextView) findViewById(R.id.et_complaint);
         etMedicine = (TextView) findViewById(R.id.et_medicine);*/
 
-
-        /*Bundle bundle = getIntent().getExtras();
+        //get Intent from RecipesFragment
+        Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            recipeID = bundle.getString("recipeID");
-        }*/
-
+            userID = bundle.getString("userID");
+        }
         Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         recipeID = recipe.getRecipeID();
 
         tvMedName.setText("Rezept mit ID" + recipeID);
         Log.d(TAG, "onCreate mit ID: " + recipeID); //Test output
+
+        type = "showRecipe";
+        String userrole = "Patienten";
+        //create instance of BackgroundWorker Class
+        backgroundHandler = new BackgroundHandler(this);
+        backgroundHandler.execute(type, userrole, userID, recipeID);
     }
 
     @Override
@@ -88,14 +94,11 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
         /*//get text from the userinputs
         String usersComplaint = etComplaint.getText().toString();
         String usersMedicine = etMedicine.getText().toString();
-        String usersDoctor = etDoctor.getText().toString(); //id/LANR wird benötigt
+        String usersDoctor = etDoctor.getText().toString(); //id/LANR wird benötigt*/
         //String userID = "000000pati"; //id/versichertennummer wird benötigt
-        type = "createNewRequire";
-        String userrole = "Patienten";
 
-        //create instance of BackgroundWorker Class
-        backgroundHandler = new BackgroundHandler(this);
-        backgroundHandler.execute(type, userrole, userID, usersComplaint, usersMedicine, usersDoctor);*/
+
+
     }
 
 
