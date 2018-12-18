@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:background="@color/recipeAccent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3"
+        android:layout_margin="5dp">
+        <!--<TextView
+            android:id="@+id/list_item_textView1"
+            android:text="TextView1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="70"/>-->
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/tv_recipe_gebuehr"
+                    android:text="Gebühr"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recipe_text_background"/>
+                <TextView
+                    android:id="@+id/tv_recipe_noctu"
+                    android:text="noctu"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recipe_text_background"/>
+
+                <TextView
+                    android:id="@+id/tv_recipe_accident"
+                    android:text="Unfall"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recipe_text_background"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="33.3"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/tv_recipe_insurance"
+                    android:text="Krankenkasse"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recipe_text_background"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33.3"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/recipe_text_background">
+
+                <TextView
+                    android:id="@+id/tv_recipe_name"
+                    android:text="Nachname, Vorname"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_recipe_street"
+                    android:text="Strasse Nr"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_recipe_city"
+                    android:text="PLZ Stadt"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_recipe_insurance_nr"
+                    android:text="Versichertennummer"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recipe_text_background"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33.3"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/recipe_text_background">
+
+                        <TextView
+                            android:id="@+id/tv_recipe_betrieb"
+                            android:text="BetriebNr."
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/tv_recipe_doc_nr"
+                            android:text="Arzt-Nr."
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="75"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/tv_recipe_aut_idem"
+                android:text="aut_idem"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/recipe_text_background"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="33.3"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/tv_recipe_medicine"
+                android:text="Medikament"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/recipeAccentLight"/>
+
+            <TextView
+                android:id="@+id/tv_recipe_med_portion"
+                android:text="Medikament Menge"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/recipeAccentLight"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/tv_recipe_office"
+            android:text="Praxisname "
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/recipeAccentLight"/>
+        <TextView
+            android:id="@+id/tv_recipe_doc"
+            android:text="Dr. Vorname Nachname"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/recipeAccentLight"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_doc_street"
+            android:text="Strasse Nr"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/recipeAccentLight"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_doc_city"
+            android:text="PLZ Stadt"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/recipeAccentLight"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_doc_signature"
+            android:text="Signatur/Unterschrift"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/recipe_text_background"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

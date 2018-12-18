@@ -2,7 +2,9 @@ package com.example.mona.digitalrecipe.models;
 
 import android.util.Log;
 
-public class Recipe {
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
 
 
     private String patID;

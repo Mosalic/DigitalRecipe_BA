@@ -58,7 +58,8 @@ public class ShowDoctorsFragment extends Fragment implements AsyncTaskCallback {
         backgroundHandler = new BackgroundHandler(this);
         String type = "getDoctors";
         String userrole = "Patienten";
-        backgroundHandler.execute(type, userrole);
+        String userID = "0";
+        backgroundHandler.execute(type, userrole, userID);
 
         //setListViewContent();
         return view;

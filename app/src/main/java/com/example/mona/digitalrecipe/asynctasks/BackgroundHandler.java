@@ -168,11 +168,13 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             Log.d(TAG, "doInBackground: type getDoctors"); //Test output
 
             str_userRole = params[1];
+            String str_userID = params[2];
 
             setAPIConnection(getDoctors_url, "POST");
 
             try {
-                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8");
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8");;
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

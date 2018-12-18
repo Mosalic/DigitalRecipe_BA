@@ -86,14 +86,14 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
                     String  adressStreetNr = (String) jsonObject.get("adress_street_nr");
                     String adressPLZ = (String) jsonObject.get("adress_PLZ");
                     String adressCity = (String) jsonObject.get("adress_city");
-                    Adress adress = new Adress(idAdress, adressStreet, adressStreetNr, adressPLZ, adressCity);
+                    //Adress adress = new Adress(idAdress, adressStreet, adressStreetNr, adressPLZ, adressCity);
 
                     //set other doc infos
                     String insurance = (String) jsonObject.get("user_ver");
-                    String userName = (String) jsonObject.get("user_username");
                     String userGeb = (String) jsonObject.get("user_geb");
                     String firstName = (String) jsonObject.get("user_firstName");
                     String lastName = (String) jsonObject.get("user_lastName");
+                    String userName = (String) jsonObject.get("user_username");
 
                     //set Content
                     tvUsername.setText(userName);

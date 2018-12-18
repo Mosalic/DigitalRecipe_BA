@@ -5,5 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="backgroundPrimary">#FFFFFF</color>
     <color name="recipeAccent">#f3d1f9</color>
+    <color name="recipeBorder">#ff0000</color>
     <color name="recipeAccentLight">#f3dcf7</color>
 </resources>

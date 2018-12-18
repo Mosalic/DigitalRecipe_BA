@@ -1,6 +1,7 @@
 package com.example.mona.digitalrecipe.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mona.digitalrecipe.R;
+import com.example.mona.digitalrecipe.activities.HomeActivity;
+import com.example.mona.digitalrecipe.activities.NewRequireActivity;
+import com.example.mona.digitalrecipe.activities.ShowRecipeActivity;
 import com.example.mona.digitalrecipe.adapters.RecipeListAdapter;
 import com.example.mona.digitalrecipe.asynctasks.BackgroundHandler;
 import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
@@ -30,6 +34,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
 
     View view;
     View itemView;
+    ArrayList<Recipe> recipeList;
     private ListView listView;
     private Context context;
     private BackgroundHandler backgroundHandler;
@@ -83,7 +88,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     private void setListViewContent(JSONArray jsonArray){
         //ArrayList<String> arrayList parameter in function maybe
         //initialise arraylist and add requires
-        final ArrayList<Recipe> recipeList = new ArrayList<>();
+        /*final ArrayList<Recipe>*/ recipeList = new ArrayList<>();
         Log.d(TAG, "setListViewContent "); //Test output
 
         /*for(int i = 0; i < arrayList.size(); i++){
@@ -167,8 +172,35 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d(TAG, "onClickItem: " + recipeList.get(i).getMedicine());
                 //Toast.makeText(context, recipeList.get(i).getPatientsName(), Toast.LENGTH_LONG);
+
+                /*Intent intent = new Intent(this, HomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", jsonID);
+                bundle.putBoolean("isLoggedIn", jsonIsUser);
+                intent.putExtras(bundle);
+                startActivity(intent);*/
+
+                showRecipe(i, recipeList.get(i));
+
+
             }
         });
+    }
+
+    private void showRecipe(int i, Recipe recipe){
+       /* ArrayList<String> recipeStringList = new ArrayList<>();
+        //add objects from jasonArray in arrayList
+        for(int j = 0; j < recipeList.size(); j++){
+            recipeStringList.add(recipeList.get(i).getString(j));
+            //Log.d(TAG, "Interface getAsyncResult get String: " + jsonArray.getString(i)); //Test output
+        }
+
+        bundleFragment.putStringArrayList("recipeArray", recipeStringList);*/
+
+        Intent intent = new Intent(getActivity(), ShowRecipeActivity.class);
+        intent.putExtra("recipe", recipe);
+        //bundle.putStringArrayList("requireArray", recipeList.get(i));
+        startActivity(intent);
     }
 
     //get Result from BackgroundHandler
