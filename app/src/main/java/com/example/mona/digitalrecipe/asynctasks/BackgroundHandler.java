@@ -26,7 +26,7 @@ import java.net.URLEncoder;
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //private Context context;
-    private  String ipAdress ="192.168.0.101"; //set WiFi IP (ipconfig 192.168.0.101), HandyHotspot 192.168.43.178,for localhost 10.0.2.2
+    private  String ipAdress ="192.168.0.102"; //set WiFi IP (ipconfig 192.168.0.102), HandyHotspot 192.168.43.178,for localhost 10.0.2.2
     private AsyncTaskCallback asyncCallback;
     private String type;
     private String str_userRole;
@@ -176,7 +176,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             try {
                 post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
-                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8");;
+                        + URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(str_userID, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

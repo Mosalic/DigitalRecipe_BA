@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
 
     //execute from Register-Button, TEST, später eigene Activity
     public void onRegister(View view){
-        Log.d(TAG, "onCrRegister: Button clicked"); //Test output
+        Log.d(TAG, "onRegister: Button clicked"); //Test output
 
         //get text from the userinputs
         String username = etUsername.getText().toString();
