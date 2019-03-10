@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mona.digitalrecipe.asynctasks.BackgroundHandler;
 import com.example.mona.digitalrecipe.interfaces.AsyncTaskCallback;
@@ -21,14 +22,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
     private String jsonID;
     private boolean jsonIsUser;
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "LoginActivity"; //TAG for test outputs
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.mona.digitalrecipe.R.layout.activity_login);
-
-        Log.d(TAG, "onCreate"); //Test output
 
         //initialise
         etUsername = (EditText) findViewById(com.example.mona.digitalrecipe.R.id.et_Username);
@@ -37,7 +36,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
 
     //execute from Login-Button
     public void onLogin(View view){
-        Log.d(TAG, "onLogin: Button clicked"); //Test output
 
         //get text from the userinputs
         String username = etUsername.getText().toString();
@@ -50,21 +48,10 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
         backgroundHandler.execute(type, userrole, username, password);
     }
 
-    //execute from Register-Button, TEST, später eigene Activity
-    public void onRegister(View view){
-        Log.d(TAG, "onRegister: Button clicked"); //Test output
-
-        //get text from the userinputs
-        String username = etUsername.getText().toString();
-       /* String password = etPassword.getText().toString();
-        String type = "register";
-        String userrole = "Patienten";
-
-        //create instance of BackgroundWorker Class
-        BackgroundHandler backgroundHandler = new BackgroundHandler(this);
-        backgroundHandler.execute(type, userrole, username, password);*/
-
-       userIsLoggedIn(username, true);
+    //link user to RegisterActivity
+    public void onRegister(View view) {
+        Log.d(TAG, " LoginActivity onRegister" );
+        Toast.makeText(this, "Registrierung noch in Bearbeitung", Toast.LENGTH_LONG).show();
     }
 
 
@@ -88,17 +75,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
                 e.printStackTrace();
             }
 
-            Log.d(TAG, "Interface in LoginActivity getAsyncResult: " + jsonID); //Test output
+            //Log.d(TAG, "Interface in LoginActivity getAsyncResult: " + jsonID);
 
             //check if API returns if user exists in database
             if(jsonIsUser == true){
-                //Testausspielung zeigt das Result an in einem Dialog
-                /*alertDialog.setMessage(jsonID);
-                alertDialog.show();*/
-
-                //bei richtigem Login wird der User weitergeleitet
                 userIsLoggedIn(jsonID, jsonIsUser);
-
             }else {
                 alertDialog.setMessage("Überprüfen Sie ihre Angaben!");
                 alertDialog.show();
@@ -116,4 +97,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
         startActivity(intent);
         finish();
     }
+
+
 }

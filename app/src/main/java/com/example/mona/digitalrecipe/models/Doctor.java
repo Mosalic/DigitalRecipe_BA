@@ -12,11 +12,11 @@ public class Doctor {
     private String title;
     private String firstName;
     private String lastName;
-    private static final String TAG = "Doctor"; //TAG for test outputs
+    private static final String TAG = "Doctor";
 
     //Constructor
     public Doctor(String firstName, String lastName, String title, String office, String phoneNumber, Adress adress) {
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;

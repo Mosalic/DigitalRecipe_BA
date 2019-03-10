@@ -32,43 +32,31 @@ public class ShowDoctorsFragment extends Fragment implements AsyncTaskCallback {
     private ListView listView;
     private Context context;
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "ShowDoctorsFragment"; //TAG for test outputs
+    private static final String TAG = "ShowDoctorsFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView"); //Test output
 
         view = inflater.inflate(R.layout.fragment_doctors, container, false);
 
         listView = view.findViewById(R.id.doctorListView);
         context = container.getContext();
 
-        //get transfered parameter from HomeActivity
-       /* String userID = "";
-        if(getArguments() != null){
-            userID = getArguments().getString("id");
-            // ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
-            Log.d(TAG, "onCreateView get Arguments: " + userID ); //Test output
-            //setListViewContent(jsonList);
-        }*/
+        String type = "getDoctors";
+        String userrole = "Patienten";
+        String userID = "x"; //ID not allowed to be empty
 
         //create instance of BackgroundWorker Class
         backgroundHandler = new BackgroundHandler(this);
-        String type = "getDoctors";
-        String userrole = "Patienten";
-        String userID = "x"; //0 weil hier ID keine ROlle spielt, für alle Patienten gleich
         backgroundHandler.execute(type, userrole, userID);
 
-        //setListViewContent();
         return view;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.d(TAG, "setUserVisibleHint: refresh data"); //Test output
 
         // Refresh tab data
         if (getFragmentManager() != null) {
@@ -81,10 +69,8 @@ public class ShowDoctorsFragment extends Fragment implements AsyncTaskCallback {
     }
 
     private void setListViewContent(JSONArray jsonArray){
-        //ArrayList<String> arrayList parameter in function maybe
         //initialise arraylist and add requires
         ArrayList<Doctor> doctorList = new ArrayList<>();
-        Log.d(TAG, "setListViewContent "); //Test output
 
         for(int i = 0; i < jsonArray.length(); i++){
             try {
@@ -101,12 +87,12 @@ public class ShowDoctorsFragment extends Fragment implements AsyncTaskCallback {
 
                 //set other doc infos
                 String office = (String) jsonObject.get("doc_office_name");
-                String phoneNumber = (String) jsonObject.get("office_phone");
+                String phoneNumber = "Tel.: " + (String) jsonObject.get("office_phone");
                 String title = (String) jsonObject.get("doc_title");
                 String firstName = (String) jsonObject.get("doc_firstName");
                 String lastName = (String) jsonObject.get("doc_lastName");
 
-                Log.d(TAG, "setListViewContent: office, phoneNumber, lastName: " + office + ", " + phoneNumber +", " + lastName); //Test output
+                //Log.d(TAG, "setListViewContent: office, phoneNumber, lastName: " + office + ", " + phoneNumber +", " + lastName);
 
                 Doctor doctor = new Doctor(firstName, lastName, title, office, phoneNumber, adress);
                 doctorList.add(doctor);
@@ -118,7 +104,7 @@ public class ShowDoctorsFragment extends Fragment implements AsyncTaskCallback {
 
         //Adapter declaration
         DoctorListAdapter doctorAdapter = new DoctorListAdapter(context, R.layout.list_item_doctor, doctorList);
-        //Log.d(TAG, "setListViewContent null test: adapter, layout: " + recipeAdapter + ", " + R.layout.list_item_recipe); //Test output
+        //Log.d(TAG, "setListViewContent null test: adapter, layout: " + recipeAdapter + ", " + R.layout.list_item_recipe);
         listView.setAdapter(doctorAdapter);
     }
 

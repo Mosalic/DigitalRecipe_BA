@@ -13,12 +13,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> fragmentListTitles = new ArrayList<>();
-    private static final String TAG = "ViewPagerAdapter"; //TAG for test outputs
+    private static final String TAG = "ViewPagerAdapter";
 
     //constructor
     public ViewPagerAdapter(FragmentManager fm){
         super(fm);
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addFragment(Fragment fragment, String title){
-        Log.d(TAG, "addFragment: " + title); //Test output
+        //Log.d(TAG, "addFragment: " + title);
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
     }

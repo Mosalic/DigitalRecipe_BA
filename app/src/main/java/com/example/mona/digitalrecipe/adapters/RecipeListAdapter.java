@@ -19,12 +19,12 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
 
     private Context context;
     private int resource;
-    private static final String TAG = "RecipeListAdapter"; //TAG for test outputs
+    private static final String TAG = "RecipeListAdapter";
 
     //Constructor
     public RecipeListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Recipe> objects) {
         super(context, resource, objects);
-        Log.d(TAG, "Constructor"); //Test output
+
         this.context = context;
         this.resource = resource;
     }
@@ -32,7 +32,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Log.d(TAG, "getView()"); //Test output
+
         //get Recipe Information
         String patID = getItem(position).getPatID();
         String docID = getItem(position).getDocID();
@@ -49,12 +49,10 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         //Create RequireObject with the Informations
         Recipe recipe = new Recipe(patID, docID, docTitle, docName, recipeID, medicine, medForm, medPortion, medDate, isNoctu, isAutIdem);
 
-        //??
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
         //get TextView from list_item_recipe.xml
-        //TextView tv = (TextView) convertView.findViewById(R.id.list_item_textView1);
         TextView tvTitleDoctor = (TextView) convertView.findViewById(R.id.list_item_textView5);
         TextView tvNameDoctor = (TextView) convertView.findViewById(R.id.list_item_textView6);
         TextView tvName = (TextView) convertView.findViewById(R.id.list_item_textView2);
@@ -62,7 +60,6 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         TextView tvMedicinePortion = (TextView) convertView.findViewById(R.id.list_item_textView4);
 
         //set TextViews
-        //tv.setText("Von: ");
         tvTitleDoctor.setText(docTitle);
         tvNameDoctor.setText(docName);
         tvName.setText("Medikament: " + medicine);

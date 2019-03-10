@@ -34,26 +34,24 @@ public class RequiresFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
+
         view = inflater.inflate(R.layout.fragment_requires, container, false);
 
         listView = view.findViewById(R.id.requireListView);
         Button btnCreateRequire = (Button) view.findViewById(R.id.button_createRequire);
         context = container.getContext();
 
-        Log.d(TAG, "onCreate" ); //Test output
-
         //get transfered parameter from HomeActivity
         String userID = "";
         if(getArguments() != null){
             userID = getArguments().getString("id");
             ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
-            Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
+            //Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList);
             setListViewContent(jsonList);
         }
 
         //set Listener for Button
-        final String user_ID = userID; //muss final sein damit es im Listener verwendet werden kann?
+        final String user_ID = userID;
         btnCreateRequire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,30 +105,6 @@ public class RequiresFragment extends Fragment{
             }
 
         }
-
-            //jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));
-            //Log.d(TAG, "setListViewContent: " + jsonList.get(i)); //Test output
-
-        //Test requires
-          /*Require require1 = new Require("Mona", "Patropazol", "Magenschmerzen");
-            Require require2 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
-            Require require3 = new Require("Doro", "Schnaps", "Verdauung");
-            Require require4 = new Require("Norbert", "Schlaf", "Migräne");
-            Require require5 = new Require("Mona", "Patropazol", "Magenschmerzen");
-            Require require6 = new Require("Lisa", "Aspirin", "Kopfschmerzen");
-            Require require7 = new Require("Doro", "Schnaps", "Verdauung");
-            Require require8 = new Require("Norbert", "Schlaf", "Migräne");
-
-
-         requireList.add(require1);
-            requireList.add(require2);
-            requireList.add(require3);
-            requireList.add(require4);
-            requireList.add(require5);
-            requireList.add(require6);
-            requireList.add(require7);
-            requireList.add(require8);*/
-
 
         //Adapter declaration
         RequireListAdapter requireAdapter = new RequireListAdapter(context, R.layout.list_item_require, requireList);

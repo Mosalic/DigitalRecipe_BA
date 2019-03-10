@@ -31,13 +31,12 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
     private TextView tvCity;
     private String userID = "";
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "ProfileFragment"; //TAG for test outputs
+    private static final String TAG = "ProfileFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView"); //Test output
+
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         tvUsername = view.findViewById(R.id.tv_profile_username);
@@ -50,18 +49,17 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
 
 
        //get transfered parameter from HomeActivity
-
         if(getArguments() != null){
             userID = getArguments().getString("id");
-            // ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
-            Log.d(TAG, "onCreateView get Arguments: " + userID ); //Test output
+            //Log.d(TAG, "onCreateView get Arguments: " + userID ); //Test output
             //setListViewContent(jsonList);
         }
 
-        //create instance of BackgroundWorker Class
-        backgroundHandler = new BackgroundHandler(this);
         String type = "getPatients";
         String userrole = "Patienten";
+
+        //create instance of BackgroundWorker Class
+        backgroundHandler = new BackgroundHandler(this);
         backgroundHandler.execute(type, userrole, userID);
 
         return view;
@@ -72,8 +70,7 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
         String jsonID = "";
 
         if(type.equals("getPatients")){
-            Log.d(TAG, "Interface getAsyncResult"); //Test output
-            //callback result with Patiens data
+            //callback result with Patients data
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(0); //get first object
 
@@ -86,7 +83,6 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
                     String  adressStreetNr = (String) jsonObject.get("adress_street_nr");
                     String adressPLZ = (String) jsonObject.get("adress_PLZ");
                     String adressCity = (String) jsonObject.get("adress_city");
-                    //Adress adress = new Adress(idAdress, adressStreet, adressStreetNr, adressPLZ, adressCity);
 
                     //set other doc infos
                     String insurance = (String) jsonObject.get("user_ver");
@@ -96,7 +92,7 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
                     String userName = (String) jsonObject.get("user_username");
 
                     //set Content
-                    tvUsername.setText(userName);
+                    tvUsername.setText("User: " + userName);
                     tvInsurance.setText(insurance);
                     tvInsuranceNr.setText(userID);
                     tvGeb.setText(userGeb);
@@ -106,7 +102,7 @@ public class ProfileFragment extends Fragment implements AsyncTaskCallback {
 
                 }else{
                     //no Patient in database, show empty Fragment
-                    Log.d(TAG, "Interface getAsyncResult: No Patient found"); //Test output
+                    Log.d(TAG, "Interface getAsyncResult: No Patient found");
                 }
 
             } catch (JSONException e) {

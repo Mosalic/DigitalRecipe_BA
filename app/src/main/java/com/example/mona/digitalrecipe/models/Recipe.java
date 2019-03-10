@@ -9,9 +9,6 @@ public class Recipe implements Serializable {
 
     private String patID;
     private String docID;
-
-
-
     private String docTitle;
     private String docName;
     private String recipeID;
@@ -22,11 +19,11 @@ public class Recipe implements Serializable {
     private String isNoctu;
     private String isAutIdem;
 
-    private static final String TAG = "Recipe"; //TAG for test outputs
+    private static final String TAG = "Recipe";
 
     //Constructor
     public Recipe(String patID, String docID, String docTitle, String docName, String recipeID, String medicine, String medForm, String medPortion, String medDate, String noctu, String autIdem) {
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
 
         this.patID = patID;
         this.docID = docID;

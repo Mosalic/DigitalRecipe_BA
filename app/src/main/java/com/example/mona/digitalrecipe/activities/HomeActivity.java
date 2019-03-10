@@ -28,14 +28,12 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
     private Bundle bundleFragment;
     private RecipeListFragment recipeListFragment;
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "HomeActivity"; //TAG for test outputs
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.mona.digitalrecipe.R.layout.activity_home);
-
-        Log.d(TAG, "onCreate"); //Test output
 
         //get Parameter from LoginActivity
         Bundle bundle = getIntent().getExtras();
@@ -43,7 +41,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
             userID = bundle.getString("id");
             isLoggedIn = bundle.getBoolean("isLoggedIn");
         }
-        Log.d(TAG, "onCreate Extras: " + userID + ", " + isLoggedIn); //Test output
+        //Log.d(TAG, "onCreate Extras: " + userID + ", " + isLoggedIn);
 
         //get Bottom navigation by id and add listener
         BottomNavigationView bottomNav = findViewById(com.example.mona.digitalrecipe.R.id.bottom_navigation_id);
@@ -52,14 +50,12 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
         //prepare bundle for pass parameter from activity to fragment
         bundleFragment = new Bundle();
         bundleFragment.putString("id", userID);
-        //RecipeListFragment recipeListFragment;
 
         //create instance of BackgroundWorker Class
         backgroundHandler = new BackgroundHandler(this);
         String type = "getRequires";
         String userrole = "Patienten";
         backgroundHandler.execute(type, userrole, userID);
-
     }
 
     //set Listener
@@ -67,13 +63,13 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Log.d(TAG, "ItemSelectListener"); //Test output
+                    //Log.d(TAG, "ItemSelectListener");
                     Fragment selectedFragment = null;
 
                     //check which item was clicked and create associated fragment
                     switch (item.getItemId()){
                         case com.example.mona.digitalrecipe.R.id.nav_recipe:
-                            selectedFragment =  createRecipeListFragments();//new RecipeListFragment();
+                            selectedFragment =  createRecipeListFragments();
                             break;
                         case com.example.mona.digitalrecipe.R.id.nav_doc:
                             selectedFragment = new ShowDoctorsFragment();
@@ -87,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
                     //show associated fragment
                     getSupportFragmentManager().beginTransaction().replace(com.example.mona.digitalrecipe.R.id.fragment_container_id, selectedFragment).commit();
 
-                    return true; //select item
+                    return true;
                 }
             };
 
@@ -100,21 +96,18 @@ public class HomeActivity extends AppCompatActivity implements AsyncTaskCallback
 
     @Override
     public void getAsyncResult(JSONArray jsonArray, String type) {
-        //when id arrives show Fragment, stop the thread
 
         String jsonID = "";
 
         if(type.equals("getRequires")){
-            Log.d(TAG, "Interface getAsyncResult"); //Test output
+            //Log.d(TAG, "Interface getAsyncResult");
             //callback result with Requires
-            //get the id from the object index 0 (API just return one object with id for Login)
             try {
-                JSONObject jsonObject = jsonArray.getJSONObject(0); //get first object
+                //get the id from the object index 0 (API just return one object with id for Login)
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
 
                 //check if jsonobject is epmty or not
                 if(jsonObject.length() > 0){
-                    //not epmty
-
                     //transfer Array to RequireFragment, first convert to Arraylist
                     ArrayList<String> requireList = new ArrayList<>();
 

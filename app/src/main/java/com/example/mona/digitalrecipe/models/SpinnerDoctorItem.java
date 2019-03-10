@@ -6,10 +6,10 @@ public class SpinnerDoctorItem {
 
     private String docName;
     private String docLANR;
-    private static final String TAG = "Adress"; //TAG for test outputs
+    private static final String TAG = "Adress";
 
     public SpinnerDoctorItem(String LANR, String name){
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
         this.docLANR = LANR;
         this.docName = name;
     }

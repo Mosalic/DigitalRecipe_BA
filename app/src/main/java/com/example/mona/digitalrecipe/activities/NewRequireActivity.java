@@ -23,23 +23,21 @@ import java.util.ArrayList;
 
 public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCallback {
 
-    private EditText etDoctor, etComplaint, etMedicine;
+    private EditText etComplaint, etMedicine;
     private String type;
     private String userID = "";
     private String usersDoctor = "";
     private Spinner docSpinner;
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "NewRequireActivity"; //TAG for test outputs
+    private static final String TAG = "NewRequireActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.mona.digitalrecipe.R.layout.activity_new_require);
 
-        //etDoctor = (EditText) findViewById(R.id.et_doctor);
         etComplaint = (EditText) findViewById(R.id.et_complaint);
         etMedicine = (EditText) findViewById(R.id.et_medicine);
-
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
@@ -47,8 +45,6 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
         }
 
         createDocSpinner();
-
-        Log.d(TAG, "onCreate mit ID: " + userID); //Test output
     }
 
     @Override
@@ -56,8 +52,6 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
         String jsonID = "";
 
         if(type.equals("createNewRequire")){
-            Log.d(TAG, "Interface getAsyncResult"); //Test output
-            //später wenn eine Antowrt kommt, im Moment noch buggy
             finish();
             //callback result with infos if require is created
             try {
@@ -68,14 +62,13 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
                     //not epmty
                     String info = (String) jsonObject.get("info");
                     if(type.equals(info)){
-                        Log.d(TAG, "Interface getAsyncResult: SUCCESS Require created"); //Test output
-                        //Toast kurz als Rückgabe anzeigen und Activity schließen und HomaActivity wieder anzeigen
+                        //Log.d(TAG, "Interface getAsyncResult: SUCCESS Require created");
                         Toast.makeText(this, "Anforderung erstellt!",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     //no Doctor in database, show empty Fragment
-                    Log.d(TAG, "Interface getAsyncResult: FAILED Require created"); //Test output
+                    Log.d(TAG, "Interface getAsyncResult: FAILED Require created");
                 }
 
             } catch (JSONException e) {
@@ -83,8 +76,6 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
             }
 
         }else if(type.equals("getDoctors")){
-            Log.d(TAG, "Interface getAsyncResult"); //Test output
-
             //callback result
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(0); //get first object
@@ -108,17 +99,14 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
 
 
     public void createNewRequire(View view) {
-        Log.d(TAG, "Button click: create new Require"); //Test output
 
         if(usersDoctor.equals("")){
-            Log.d(TAG, "createNewRequire: Bitte wählen sie einen Arzt");
             Toast.makeText(NewRequireActivity.this, "Bitte wähle einen Arzt", Toast.LENGTH_SHORT).show();
         }else{
             //get text from the userinputs
             String usersComplaint = etComplaint.getText().toString();
             String usersMedicine = etMedicine.getText().toString();
-            //String usersDoctor = etDoctor.getText().toString(); //id/LANR wird benötigt
-            //String userID = "000000pati"; //id/versichertennummer wird benötigt
+
             type = "createNewRequire";
             String userrole = "Patienten";
 
@@ -129,7 +117,6 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
     }
 
     public void createDocSpinner() {
-        Log.d(TAG, "Button click: create Spinner"); //Test output
         docSpinner = (Spinner) findViewById(R.id.spinner);
 
         //add Listener
@@ -157,10 +144,8 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
     }
 
     private void setSpinnerContent(JSONArray jsonArray) {
-        //ArrayList<String> arrayList parameter in function maybe
         //initialise arraylist and add requires
         ArrayList<SpinnerDoctorItem> doctorList = new ArrayList<>();
-        Log.d(TAG, "setSpinnerContent "); //Test output
 
         for(int i = 0; i < jsonArray.length(); i++){
             try {
@@ -185,8 +170,6 @@ public class NewRequireActivity extends AppCompatActivity implements AsyncTaskCa
 
         //Adapter declaration
         DoctorSpinnerAdapter spinnerAdapter = new DoctorSpinnerAdapter(this, doctorList);
-        //Log.d(TAG, "setListViewContent null test: adapter, layout: " + recipeAdapter + ", " + R.layout.list_item_recipe); //Test output
         docSpinner.setAdapter(spinnerAdapter);
     }
-
 }

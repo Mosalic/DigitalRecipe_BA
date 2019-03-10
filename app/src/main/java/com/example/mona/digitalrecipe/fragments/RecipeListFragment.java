@@ -24,13 +24,11 @@ public class RecipeListFragment extends Fragment {
     private String userID;
     private ArrayList<String> jsonList;
     private ViewPagerAdapter viewAdapter;
-    private static final String TAG = "RecipeListFragment"; //TAG for test outputs
+    private static final String TAG = "RecipeListFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView"); //Test output
 
         view = inflater.inflate(R.layout.fragment_recipe_lists, container, false);
 
@@ -45,18 +43,20 @@ public class RecipeListFragment extends Fragment {
         if(getArguments() != null){
             userID = getArguments().getString("id");
             jsonList = getArguments().getStringArrayList("requireArray");
-            Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList); //Test output
+            //Log.d(TAG, "onCreateView get Arguments: " + userID + ", " + jsonList);
 
             requiresFragment.setArguments(getArguments());
-            recipesFragment.setArguments(getArguments()); //eigentlich brauche ich nur id
+            recipesFragment.setArguments(getArguments());
 
         }
 
         //Adapter declaration
-       viewAdapter = new ViewPagerAdapter(getFragmentManager());
+        viewAdapter = new ViewPagerAdapter(getFragmentManager());
+
         //adding Fragments
         viewAdapter.addFragment(recipesFragment, "Rezepte");
         viewAdapter.addFragment(requiresFragment, "Anforderungen");
+
         //adapter setup
         viewPager.setAdapter(viewAdapter);
         tabLayout.setupWithViewPager(viewPager);

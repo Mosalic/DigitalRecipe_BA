@@ -7,10 +7,10 @@ public class Require {
     private String name;
     private String medicine;
     private String complaint;
-    private static final String TAG = "Require"; //TAG for test outputs
+    private static final String TAG = "Require";
 
     public Require(String name, String medicine, String complaint) {
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
         this.name = name;
         this.medicine = medicine;
         this.complaint = complaint;

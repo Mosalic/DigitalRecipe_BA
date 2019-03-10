@@ -33,40 +33,36 @@ import java.util.ArrayList;
 public class RecipesFragment extends Fragment implements AsyncTaskCallback {
 
     View view;
-    View itemView;
     ArrayList<Recipe> recipeList;
     private String userID = "";
     private ListView listView;
     private Context context;
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "RecipesFragment"; //TAG for test outputs
+    private static final String TAG = "RecipesFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView"); //Test output
+
         view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
         listView = view.findViewById(R.id.recipeListView);
         context = container.getContext();
 
         //get transfered parameter from HomeActivity
-
         if(getArguments() != null){
             userID = getArguments().getString("id");
-           // ArrayList<String> jsonList = getArguments().getStringArrayList("requireArray");
-            Log.d(TAG, "onCreateView get Arguments: " + userID ); //Test output
+            //Log.d(TAG, "onCreateView get Arguments: " + userID );
             //setListViewContent(jsonList);
         }
 
-        //create instance of BackgroundWorker Class
-        backgroundHandler = new BackgroundHandler(this);
         String type = "getRecipes";
         String userrole = "Patienten";
+
+        //create instance of BackgroundWorker Class
+        backgroundHandler = new BackgroundHandler(this);
         backgroundHandler.execute(type, userrole, userID);
 
-        //setListViewContent();
         return view;
 
     }
@@ -74,7 +70,6 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.d(TAG, "setUserVisibleHint: refresh data"); //Test output
 
         // Refresh tab data
         if (getFragmentManager() != null) {
@@ -87,30 +82,10 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
     }
 
     private void setListViewContent(JSONArray jsonArray){
-        //ArrayList<String> arrayList parameter in function maybe
+
         //initialise arraylist and add requires
-        /*final ArrayList<Recipe>*/ recipeList = new ArrayList<>();
-        Log.d(TAG, "setListViewContent "); //Test output
+        recipeList = new ArrayList<>();
 
-        /*for(int i = 0; i < arrayList.size(); i++){
-            try {
-                //create JSON
-                JSONObject jsonObject = new JSONObject(arrayList.get(i));
-
-                String user = ( String) jsonObject.get("ver_nummer");
-                String doctor = ( String) jsonObject.get("LANR_fk");
-                String medicine = ( String) jsonObject.get("med_name");
-                String medicinePortion = (String) jsonObject.get("med_menge");
-
-                Log.d(TAG, "setListViewContent: user, doctor ,medicine, portion: " + user + ", " + doctor +", " + medicine + ", " + medicinePortion); //Test output
-
-                Recipe recipe = new Recipe(user, medicine, medicinePortion, doctor);
-                recipeList.add(recipe);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }*/
 
         for(int i = 0; i < jsonArray.length(); i++){
             try {
@@ -131,7 +106,7 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
                 String docLastName = ( String) jsonObject.get("doc_lastName");
                 String doctor = docFirstName + " " + docLastName;
 
-                Log.d(TAG, "setListViewContent:  doctor ,medicine, portion: " +  ", " + doctor +", " + medicine + ", " + medPortion); //Test output
+                //Log.d(TAG, "setListViewContent:  doctor ,medicine, portion: " +  ", " + doctor +", " + medicine + ", " + medPortion);
 
                 Recipe recipe = new Recipe(patID, docID, docTitle, doctor, recipeID, medicine, medForm, medPortion, medDate, noctu, autIdem);
                 recipeList.add(recipe);
@@ -141,26 +116,6 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
 
         }
 
-       /* //Test recipes
-        Recipe recipe1 = new Recipe("Mona", "Patropazol", "30", "Dr.Winter");
-        Recipe recipe2 = new Recipe("Lisa", "Aspirin", "30", "Dr.Sommer");
-        Recipe recipe3 = new Recipe("Doro", "Schnaps", "1", "Dr.Herbst");
-        Recipe recipe4 = new Recipe("Norbert", "Patropazol", "30", "Dr.Bodo");
-        Recipe recipe5 = new Recipe("Lisa", "Patropazol", "30", "Dr.Winter");
-        Recipe recipe6 = new Recipe("Doro", "Schlaf", "8h", "Dr.Sommer");
-        Recipe recipe7 = new Recipe("Norbert", "Patropazol", "30", "Dr.Winter");
-        Recipe recipe8 = new Recipe("Mona", "Patropazol", "30", "Dr.Eckmann");
-
-        recipeList.add(recipe1);
-        recipeList.add(recipe2);
-        recipeList.add(recipe3);
-        recipeList.add(recipe4);
-        recipeList.add(recipe5);
-        recipeList.add(recipe6);
-        recipeList.add(recipe7);
-        recipeList.add(recipe8);*/
-
-        //Log.d(TAG, "setListViewContent null test: context, list: " + context + ", " + recipeList); //Test output
 
         //Adapter declaration
         RecipeListAdapter recipeAdapter = new RecipeListAdapter(context, R.layout.list_item_recipe, recipeList);
@@ -171,19 +126,8 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "onClickItem: " + recipeList.get(i).getMedicine());
-                //Toast.makeText(context, recipeList.get(i).getPatientsName(), Toast.LENGTH_LONG);
-
-                /*Intent intent = new Intent(this, HomeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", jsonID);
-                bundle.putBoolean("isLoggedIn", jsonIsUser);
-                intent.putExtras(bundle);
-                startActivity(intent);*/
-
+                //Log.d(TAG, "onClickItem: " + recipeList.get(i).getMedicine());
                 showRecipe(i, recipeList.get(i));
-
-
             }
         });
     }
@@ -212,16 +156,6 @@ public class RecipesFragment extends Fragment implements AsyncTaskCallback {
                 if(jsonObject.length() > 0){
                     //not epmty
                     setListViewContent(jsonArray); //set Content
-
-                    /* //transfer Array to RecipeFragment, first convert to Arraylist
-                    ArrayList<String> recipeList = new ArrayList<>();
-
-                    //add objects from jasonArray in arrayList
-                    for(int i = 0; i < jsonArray.length(); i++){
-                        recipeList.add(jsonArray.getString(i));
-                        //Log.d(TAG, "Interface getAsyncResult get String: " + jsonArray.getString(i)); //Test output
-                    }*/
-
 
                 }else{
                     //no Recipe in database, show empty Fragment

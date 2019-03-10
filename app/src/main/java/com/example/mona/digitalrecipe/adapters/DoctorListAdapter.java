@@ -22,12 +22,12 @@ public class DoctorListAdapter extends ArrayAdapter<Doctor> {
 
     private Context context;
     private int resource;
-    private static final String TAG = "DoctorListAdapter"; //TAG for test outputs
+    private static final String TAG = "DoctorListAdapter";
 
     //Constructor
     public DoctorListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Doctor> objects) {
         super(context, resource, objects);
-        Log.d(TAG, "Constructor"); //Test output
+
         this.context = context;
         this.resource = resource;
     }
@@ -48,14 +48,13 @@ public class DoctorListAdapter extends ArrayAdapter<Doctor> {
         //Create RequireObject with the Informations
         Doctor doctor = new Doctor(firstName, lastName, title, office, phoneNumber, adress);
 
-        //??
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
         //get TextView from list_item_doctor.xml
         TextView tvNameDoctor = (TextView) convertView.findViewById(R.id.list_item_textView1);
-        TextView tvPhone = (TextView) convertView.findViewById(R.id.list_item_textView2);
-        TextView tvOffice = (TextView) convertView.findViewById(R.id.list_item_textView3);
+        TextView tvPhone = (TextView) convertView.findViewById(R.id.list_item_textView3);
+        TextView tvOffice = (TextView) convertView.findViewById(R.id.list_item_textView2);
         TextView tvStreet = (TextView) convertView.findViewById(R.id.list_item_textView4);
         TextView tvCity = (TextView) convertView.findViewById(R.id.list_item_textView5);
 

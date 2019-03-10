@@ -20,12 +20,12 @@ public class RequireListAdapter extends ArrayAdapter<Require> {
     private Context context;
     private int resource;
 
-    private static final String TAG = "RequireListAdapter"; //TAG for test outputs
+    private static final String TAG = "RequireListAdapter";
 
     //Constructor
     public RequireListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Require> objects) {
         super(context, resource, objects);
-        Log.d(TAG, "Constructor"); //Test output
+
         this.context = context;
         this.resource = resource;
     }
@@ -33,16 +33,15 @@ public class RequireListAdapter extends ArrayAdapter<Require> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Log.d(TAG, "getView()"); //Test output
+        //Log.d(TAG, "getView()");
         //get Require Information
         String name = getItem(position).getName();
         String medicine = getItem(position).getMedicine();
         String complaint = getItem(position).getComplaint();
 
-        //Create RequireObject with the Informations
+        //Create RequireObject with the informations
         Require require = new Require(name, medicine, complaint);
 
-        //??
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 

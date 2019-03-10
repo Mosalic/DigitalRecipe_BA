@@ -19,13 +19,13 @@ import org.json.JSONObject;
 
 public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCallback {
 
-    private TextView tvInsurance, tvInsuranceNr, tvPatName, tvPatStreet, tvPatCity, tvOfficeName, tvOfficeNr, tvMedName, tvMedPortion, tvDocName, tvDocStreet, tvDocCity, tvDocSignature;
+    private TextView tvInsurance, tvInsuranceNr, tvPatName, tvPatStreet, tvPatCity, tvOfficeName, tvOfficeNr, tvMedName, tvMedPortion, tvDocName, tvDocLANR, tvDocStreet, tvDocCity, tvDocSignature;
     private String type;
     private String userID = "";
     private Recipe recipe;
     private String recipeID = "";
     private BackgroundHandler backgroundHandler;
-    private static final String TAG = "ShowRecipeActivity"; //TAG for test outputs
+    private static final String TAG = "ShowRecipeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
         tvMedName = (TextView) findViewById(R.id.tv_recipe_medicine);
         tvMedPortion = (TextView) findViewById(R.id.tv_recipe_med_portion);
         tvDocName = (TextView) findViewById(R.id.tv_recipe_doc);
+        tvDocLANR = (TextView) findViewById(R.id.tv_recipe_doc_nr);
         tvDocStreet = (TextView) findViewById(R.id.tv_recipe_doc_street);
         tvDocCity = (TextView) findViewById(R.id.tv_recipe_doc_city);
         tvDocSignature = (TextView) findViewById(R.id.tv_recipe_doc_signature);
@@ -56,10 +57,10 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
 
         recipeID = recipe.getRecipeID();
         tvMedName.setText("Rezept mit ID" + recipeID);
-        Log.d(TAG, "onCreate mit ID: " + recipeID); //Test output
 
         type = "showRecipe";
         String userrole = "Patienten";
+
         //create instance of BackgroundWorker Class
         backgroundHandler = new BackgroundHandler(this);
         backgroundHandler.execute(type, userrole, userID, recipeID);
@@ -68,10 +69,9 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
     @Override
     public void getAsyncResult(JSONArray jsonArray, String type) {
         String jsonID = "";
-        //Log.d(TAG, "Interface getAsyncResult: HAAALLOOO"); //Test output
+
         if(type.equals("showRecipe")){
-            Log.d(TAG, "Interface getAsyncResult"); //Test output
-            //später wenn eine Antowrt kommt, im Moment noch buggy
+
             //finish();
             //callback result with infos if require is created
             try {
@@ -80,8 +80,9 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
                 //check if jsonobject is epmty or not
                 if(jsonObject.length() > 0){
                     //not epmty
+                    //Log.d(TAG, "Interface getAsyncResult: SUCCESS showRecipe response");
 
-                    Log.d(TAG, "Interface getAsyncResult: SUCCESS showRecipe response"); //Test output
+                    //set content
                     setRecipeContent(jsonArray);
 
                 }else{
@@ -98,14 +99,6 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
     }
 
     public void setRecipeContent(JSONArray jsonArray) {
-        Log.d(TAG, "Set Content Recipe"); //Test output
-
-        /*//get text from the userinputs
-        String usersComplaint = etComplaint.getText().toString();
-        String usersMedicine = etMedicine.getText().toString();
-        String usersDoctor = etDoctor.getText().toString(); //id/LANR wird benötigt*/
-        //String userID = "000000pati"; //id/versichertennummer wird benötigt
-
 
         for(int i = 0; i < jsonArray.length(); i++){
             try {
@@ -116,7 +109,7 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
                 String patInsurance = ( String) jsonObject.get("pat_insurance");
                 String patLastName = ( String) jsonObject.get("pat_lastName");
                 String patFirstName = ( String) jsonObject.get("pat_firstName");
-                String patient = patLastName + " " + patFirstName;
+                String patient = patLastName + ", " + patFirstName;
                 String patAdressStreet = ( String) jsonObject.get("pat_adresse_street") + " " + ( String) jsonObject.get("pat_adresse_street_nr");
                 String patAdressCity = ( String) jsonObject.get("pat_adresse_PLZ") + " " + ( String) jsonObject.get("pat_adresse_city");
                 String docTitle = ( String) jsonObject.get("doc_title");
@@ -134,17 +127,18 @@ public class ShowRecipeActivity extends AppCompatActivity implements AsyncTaskCa
 
                 //Log.d(TAG, "setRecipeContent: Versicherung, Doc, Patient: " +  ", " + patInsurance +", " + doctor + ", " + patient); //Test output
 
-                tvInsuranceNr.setText(patInsuranceNr);
+                tvInsuranceNr.setText("Vers.Nr: " + patInsuranceNr);
                 tvPatName.setText(patient);
                 tvPatStreet.setText(patAdressStreet);
                 tvPatCity.setText(patAdressCity);
                 tvInsurance.setText(patInsurance);
 
                 tvOfficeName.setText(office);
-                tvOfficeNr.setText(officeNr);
+                tvOfficeNr.setText("Betr.Nr: " + officeNr);
                 tvMedName.setText(recipe.getMedicine());
                 tvMedPortion.setText(recipe.getMedPortion() + " " + recipe.getMedForm());
                 tvDocName.setText(doctor);
+                tvDocLANR.setText("ArztNr: " + docLANR);
                 tvDocStreet.setText(docAdressStreet);
                 tvDocCity.setText(docAdressCity);
                 tvDocSignature.setText(docSignature);

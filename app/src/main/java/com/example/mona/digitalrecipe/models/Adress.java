@@ -11,11 +11,11 @@ public class Adress {
     private String streetNr;
     private String plz;
     private String city;
-    private static final String TAG = "Adress"; //TAG for test outputs
+    private static final String TAG = "Adress";
 
     //Constructor
     public Adress(String idAdress, String street, String streetNr, String plz, String city) {
-        Log.d(TAG, "Constructor"); //Test output
+        //Log.d(TAG, "Constructor");
         this.idAdress = idAdress;
         this.street = street;
         this.streetNr = streetNr;

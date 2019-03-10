@@ -15,14 +15,14 @@ import org.json.JSONArray;
 public class RegisterActivity extends AppCompatActivity implements AsyncTaskCallback {
     //Variables
     private EditText etUsername, etPassword;
-    private static final String TAG = "RegisterActivity"; //TAG for test outputs
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Log.d(TAG, "onCreate"); //Test output
+        Log.d(TAG, "RegisterActivity oncreater");
 
         //initialise
         etUsername = (EditText) findViewById(R.id.et_Username);
@@ -44,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity implements AsyncTaskCall
 
     //execute from Register-Button
     public void onRegister(View view){
-        Log.d(TAG, "onRegister: Button clicked"); //Test output
 
         //get text from the userinputs
         String username = etUsername.getText().toString();
@@ -59,6 +58,6 @@ public class RegisterActivity extends AppCompatActivity implements AsyncTaskCall
 
     @Override
     public void getAsyncResult(JSONArray jsonArray, String type) {
-
+        //not implemented yet
     }
 }

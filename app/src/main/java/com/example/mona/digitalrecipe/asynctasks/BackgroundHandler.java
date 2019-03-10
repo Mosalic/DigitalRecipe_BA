@@ -22,11 +22,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-//this class stays in java, in Kotlin there are connection probems
+//this class stays in java, in Kotlin there are connection problems
 public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //private Context context;
-    private  String ipAdress ="192.168.0.102"; //set WiFi IP (ipconfig 192.168.0.102), HandyHotspot 192.168.43.178,for localhost 10.0.2.2
+    private  String ipAdress ="192.168.0.101"; //set WiFi IP (ipconfig 192.168.0.102),for localhost 10.0.2.2
     private AsyncTaskCallback asyncCallback;
     private String type;
     private String str_userRole;
@@ -57,6 +57,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... params) {
 
         type = params[0];
+        //set API paths
         String login_url = "http://" + ipAdress + "/API_Data/login.php";
         String register_url = "http://" + ipAdress + "/API_Data/registerUser.php";
         String getRequires_url = "http://" + ipAdress + "/API_Data/getRequires.php";
@@ -69,13 +70,22 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
         //Behavior for Login
         if(type.equals("login")){
-            Log.d(TAG, "doInBackground: type Login"); //Test output
+            //Log.d(TAG, "doInBackground: type Login");
 
-            setParams(params);
+            //setParams(params);
+            str_userRole = params[1];
+            str_username = params[2];
+            str_userPassword = params[3];
 
             setAPIConnection(login_url, "POST");
 
-            setLoginData();
+            try {
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                        + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
+                        + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
             postingData(post_data);
 
@@ -84,54 +94,27 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         }
         //Behavior for register
         else if(type.equals("register")){
-            Log.d(TAG, "doInBackground: type Register"); //Test output
+           // Log.d(TAG, "doInBackground: type Register");
+            //setParams(params);
+            str_userRole = params[1];
+            str_username = params[2];
+            str_userPassword = params[3];
+
+            setAPIConnection(register_url, "POST");
 
             try {
-                setParams(params);
-
-                //setAPIConnection(register_url, "POST");
-                url = new URL(register_url);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
                 //"userRole", "userName" und "userPassword" insert to login.php
-                String post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
+                post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
                         + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
                         + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
-
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-
-                String result = "";
-                String line = "";
-                while((line = bufferedReader.readLine()) != null){
-                    result += line;
-                }
-
-                bufferedReader.close();
-                inputStream.close();
-
-                httpURLConnection.disconnect();
-
-                return result;
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
+            postingData(post_data);
+
+            return receivingData();
         }else if (type.equals("getRequires")){
-            Log.d(TAG, "doInBackground: type getRequires"); //Test output
+            //Log.d(TAG, "doInBackground: type getRequires");
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -149,7 +132,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             return receivingData();
         }else if (type.equals("getRecipes")){
-            Log.d(TAG, "doInBackground: type getRecipes"); //Test output
+            //Log.d(TAG, "doInBackground: type getRecipes");
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -167,7 +150,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             return receivingData();
         }else if (type.equals("getDoctors")){
-            Log.d(TAG, "doInBackground: type getDoctors"); //Test output
+            //Log.d(TAG, "doInBackground: type getDoctors"); //Test output
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -185,7 +168,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             return receivingData();
         }else if (type.equals("getPatients")){
-            Log.d(TAG, "doInBackground: type getPatients"); //Test output
+            //Log.d(TAG, "doInBackground: type getPatients");
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -203,7 +186,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             return receivingData();
         }else if (type.equals("createNewRequire")){
-            Log.d(TAG, "doInBackground: type createNewRequire"); //Test output
+            //Log.d(TAG, "doInBackground: type createNewRequire");
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -227,7 +210,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             return receivingData();
         }else if (type.equals("showRecipe")){
-            Log.d(TAG, "doInBackground: type showRequire"); //Test output
+            //Log.d(TAG, "doInBackground: type showRequire");
 
             str_userRole = params[1];
             String str_userID = params[2];
@@ -249,16 +232,15 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             return receivingData();
         }
 
-        Log.d(TAG, "doInBackground: receivingData null "); //Test output result
-        return null; //??
+        //Log.d(TAG, "doInBackground: receivingData null ");
+        return null;
     }
 
 
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);
-        //JSONObject jsonObject;
-        Log.d(TAG, "onPostExecute result:" + result); //Test output result
+        //Log.d(TAG, "onPostExecute result:" + result);
 
         JSONArray jsonArray = null;
         String jsonID = "";
@@ -266,14 +248,9 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
         try{
             jsonArray = new JSONArray(result);
-            //parse result into JSON
-            //get the id from the object index 0 (API just return one object with id for Login)
-            /*jsonID = jsonArray.getJSONObject(0).getString("id");
-            jsonIsUser =  Boolean.valueOf(jsonArray.getJSONObject(0).getString("isUser"));*/
-            //transfer result back to the activity
-           // asyncCallback.getAsyncResult(jsonArray);
+
         }catch(JSONException e){
-            Log.d(TAG, "onPostExecute: unexpected JSONException "); //Test output result
+            //Log.d(TAG, "onPostExecute: unexpected JSONException ");
 
             //set Default JSONArray when Exceptions executes
             JSONObject jsonObject = new JSONObject();
@@ -282,18 +259,15 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
             //no result, return ErrorInfo
             try {
                 if(type.equals("login")){
-                    Log.d(TAG, "onPostExecute: unexpected JSONException: type Login"); //Test output result
                     jsonObject.put("id", jsonID);
                     jsonObject.put("isUser", jsonIsUser);
-                    Log.d(TAG, "onPostExecute: unexpected JSONException: result: " + jsonID + ", " + jsonIsUser); //Test output result
-                    //transfer result back to the activity
-                    //asyncCallback.getAsyncResult(jsonArray);
+                    //Log.d(TAG, "onPostExecute: unexpected JSONException: result: " + jsonID + ", " + jsonIsUser);
+
                 }else if(type.equals("getRequires")){
-                    Log.d(TAG, "onPostExecute: unexpected JSONException type getRequires"); //Test output result
-                    //jsonObject.put("request", false);
+                    Log.d(TAG, "onPostExecute: unexpected JSONException type getRequires");
                 }
                 jsonArray = new JSONArray();
-                Log.d(TAG, "onPostExecute: unexpected JSONException jsonObject: " + jsonObject); //Test output result
+                //Log.d(TAG, "onPostExecute: unexpected JSONException jsonObject: " + jsonObject);
                 jsonArray.put(jsonObject);
             } catch (JSONException e1) {
                 e1.printStackTrace();
@@ -314,11 +288,11 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     //own functions
     //set the Parameter from the Login
-    private void setParams(String... params){
+    /*private void setParams(String... params){
         str_userRole = params[1];
         str_username = params[2];
         str_userPassword = params[3];
-    }
+    }*/
 
     //open connection to API/database
     private void setAPIConnection(String str_url, String request_method){
@@ -339,8 +313,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
     }
 
     //set posting data
-    private void setLoginData() {
-        //"userRole", "userName" und "userPassword" insert to login.php
+   /* private void setLoginData() {
         try {
             post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
                     + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
@@ -348,7 +321,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void postingData(String post_data) {
         try {
@@ -384,8 +357,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
             httpURLConnection.disconnect();
 
-            Log.d(TAG, "receivingData result: " + result); //Test output result
-
+            //Log.d(TAG, "receivingData result: " + result); //Test output result
             return result;
         } catch (IOException e) {
             e.printStackTrace();
