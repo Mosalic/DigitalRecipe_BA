@@ -72,7 +72,6 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         if(type.equals("login")){
             //Log.d(TAG, "doInBackground: type Login");
 
-            //setParams(params);
             str_userRole = params[1];
             str_username = params[2];
             str_userPassword = params[3];
@@ -95,7 +94,7 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
         //Behavior for register
         else if(type.equals("register")){
            // Log.d(TAG, "doInBackground: type Register");
-            //setParams(params);
+
             str_userRole = params[1];
             str_username = params[2];
             str_userPassword = params[3];
@@ -287,12 +286,6 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
 
     //own functions
-    //set the Parameter from the Login
-    /*private void setParams(String... params){
-        str_userRole = params[1];
-        str_username = params[2];
-        str_userPassword = params[3];
-    }*/
 
     //open connection to API/database
     private void setAPIConnection(String str_url, String request_method){
@@ -312,16 +305,6 @@ public class BackgroundHandler extends AsyncTask<String, Void, String>{
 
     }
 
-    //set posting data
-   /* private void setLoginData() {
-        try {
-            post_data = URLEncoder.encode("userRole", "UTF-8") + "=" + URLEncoder.encode(str_userRole, "UTF-8") + "&"
-                    + URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(str_username, "UTF-8") + "&"
-                    + URLEncoder.encode("userPassword", "UTF-8") + "=" + URLEncoder.encode(str_userPassword, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void postingData(String post_data) {
         try {
